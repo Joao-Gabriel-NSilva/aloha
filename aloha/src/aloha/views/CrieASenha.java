@@ -5,15 +5,16 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
@@ -22,7 +23,7 @@ public class CrieASenha {
 
 	private JFrame frame;
 	private JTextField textFieldSenha;
-	private Usuario usuario;
+	private static Usuario USUARIO;
 
 	/**
 	 * Launch the application.
@@ -48,7 +49,7 @@ public class CrieASenha {
 	}
 
 	public CrieASenha(Usuario usuario) {
-		this.usuario = usuario;
+		USUARIO = usuario;
 		main(null);
 	}
 
@@ -79,14 +80,14 @@ public class CrieASenha {
 		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
 		lbl2.setBounds(16, 123, 460, 41);
 		frame.getContentPane().add(lbl2);
-		
+
 		JLabel lbl3 = new JLabel("números sequenciais (ex: 123 ou 321) ou repetidos (ex: 111).");
 		lbl3.setHorizontalAlignment(SwingConstants.LEFT);
 		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
 		lbl3.setBounds(16, 151, 460, 41);
 		frame.getContentPane().add(lbl3);
 		//
-		
+
 		// text field senha
 		textFieldSenha = new JTextField();
 		textFieldSenha.setToolTipText("Primeiro nome");
@@ -96,17 +97,17 @@ public class CrieASenha {
 		textFieldSenha.setBounds(22, 279, 447, 44);
 		frame.getContentPane().add(textFieldSenha);
 		//
-		
+
 		// botão avançar
 		JButton btnAvancar = new JButton("Avançar");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					usuario.setSenha(textFieldSenha.getText());
+					USUARIO.setSenha(textFieldSenha.getText());
 					frame.setVisible(false);
-					new ConhecerMelhor(usuario);
+					new ConhecerMelhor(USUARIO);
 					ConhecerMelhor.main(null);
-				} catch(RuntimeException ex) {
+				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			}
@@ -119,20 +120,17 @@ public class CrieASenha {
 		btnAvancar.setBounds(22, 353, 447, 44);
 		frame.getContentPane().add(btnAvancar);
 		//
-		
+
 		// botão voltar
-		JButton btnVoltar = new JButton("< voltar");
-		btnVoltar.setForeground(Color.GRAY);
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnVoltar.setOpaque(true);
-		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnVoltar.setBounds(0, 0, 87, 23);
-		btnVoltar.setFocusable(false);
-		frame.getContentPane().add(btnVoltar);
-		
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel lblVoltar = new JLabel("");
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
+		lblVoltar.setIcon(img);
+		lblVoltar.setBounds(0, 0, 37, 41);
+		frame.getContentPane().add(lblVoltar);
+
+		lblVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				InformeEmail.main(null);
 			}

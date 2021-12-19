@@ -5,8 +5,14 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.Scanner;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,8 +26,8 @@ public class InformeTelefone {
 
 	private JFrame frame;
 	private JTextField textFieldTelefone;
-	private JTextField textFieldDDD;
-	private Usuario usuario;
+	private JComboBox<String> comboBoxDDD;
+	private static Usuario USUARIO;
 
 	/**
 	 * Launch the application.
@@ -47,7 +53,7 @@ public class InformeTelefone {
 	}
 
 	public InformeTelefone(Usuario novo_usuario) {
-		this.usuario = novo_usuario;
+		USUARIO = novo_usuario;
 		main(null);
 	}
 
@@ -72,7 +78,7 @@ public class InformeTelefone {
 		frame.getContentPane().add(lblNewLabel);
 		//
 
-		// label 2
+		// label 2 e 3
 		JLabel lbl2 = new JLabel("Precisamos te enviar um código de "
 				+ "confirmação para garantir");
 		lbl2.setHorizontalAlignment(SwingConstants.LEFT);
@@ -87,28 +93,43 @@ public class InformeTelefone {
 		frame.getContentPane().add(lbl3);
 		//
 		
-		// text field nome
+		// text field telefone
 		textFieldTelefone = new JTextField();
-		textFieldTelefone.setToolTipText("Primeiro nome");
+		textFieldTelefone.setToolTipText("Número do telefone.");
 		textFieldTelefone.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
 		textFieldTelefone.setColumns(10);
 		textFieldTelefone.setBorder(ViewUtil.BORDA_ROSA);
-		textFieldTelefone.setBounds(86, 279, 383, 44);
+		textFieldTelefone.setBounds(95, 279, 374, 44);
 		frame.getContentPane().add(textFieldTelefone);
 		//
 		
-		// text field sobrenome
-		textFieldDDD = new JTextField();
-		textFieldDDD.setToolTipText("Primeiro nome");
-		textFieldDDD.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textFieldDDD.setColumns(10);
-		textFieldDDD.setBorder(ViewUtil.BORDA_ROSA);
-		textFieldDDD.setBounds(23, 279, 44, 44);
-		frame.getContentPane().add(textFieldDDD);
+		// combo box ddd
+		comboBoxDDD = new JComboBox<String>();
+		comboBoxDDD.setToolTipText("DDD");
+		comboBoxDDD.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
+		comboBoxDDD.setBorder(ViewUtil.BORDA_ROSA);
+		comboBoxDDD.setBounds(23, 279, 62, 44);
+		comboBoxDDD.addItem("");
+		frame.getContentPane().add(comboBoxDDD);
+		
+		try {
+			Scanner scanner = new Scanner(new File("dados/DDDs.csv"), "UTF-8");
+			while (scanner.hasNextLine()) {
+				String linha = scanner.nextLine();
+				Scanner linhaScanner = new Scanner(linha);
+				linhaScanner.useDelimiter(";");
+				String ddd = linhaScanner.next();
+				comboBoxDDD.addItem(ddd);
+
+				linhaScanner.close();
+			}
+			scanner.close();
+		} catch (Exception e) {
+		}
 		//
 		
 		// botão avançar
-		JButton btnAvancar = new JButton("Avançar");
+		JButton btnAvancar = new JButton("Enviar");
 		btnAvancar.setOpaque(true);
 		btnAvancar.setContentAreaFilled(false);
 		btnAvancar.setForeground(Color.BLACK);
@@ -120,12 +141,12 @@ public class InformeTelefone {
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					usuario.setTelefone(textFieldDDD.getText() + textFieldTelefone.getText());
+					USUARIO.setTelefone(comboBoxDDD.getSelectedItem() + textFieldTelefone.getText());
 					/*
 					 * envia sms
 					 */
 					frame.setVisible(false);
-					new ConfirmeOCodigo(usuario);
+					new ConfirmeOCodigo(USUARIO);
 				} catch(RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
@@ -134,24 +155,19 @@ public class InformeTelefone {
 		//
 		
 		// botão voltar
-		JButton btnVoltar = new JButton("< voltar");
-		btnVoltar.setForeground(Color.GRAY);
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnVoltar.setOpaque(true);
-		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnVoltar.setBounds(0, 0, 87, 23);
-		btnVoltar.setFocusable(false);
-		frame.getContentPane().add(btnVoltar);
+		JLabel lblVoltar = new JLabel("");
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
+		lblVoltar.setIcon(img);
+		lblVoltar.setBounds(0, 0, 37, 41);
+		frame.getContentPane().add(lblVoltar);
 		
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		lblVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				InformeNome.main(null);
 			}
 		});
 		//
-		
 	}
-
 }

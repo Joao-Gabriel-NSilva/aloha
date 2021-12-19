@@ -82,7 +82,9 @@ public class InformeNome {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				textFieldNome.setFocusable(true);
-				textFieldNome.setText(null);
+				if(textFieldNome.getText().equals("Primeiro nome")) {
+					textFieldNome.setText(null);
+				}
 				textFieldNome.setForeground(Color.BLACK);
 			}
 		});
@@ -103,7 +105,9 @@ public class InformeNome {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				textFieldSobrenome.setFocusable(true);
-				textFieldSobrenome.setText(null);
+				if(textFieldSobrenome.getText().equals("Sobrenome")) {
+					textFieldSobrenome.setText(null);
+				}
 				textFieldSobrenome.setForeground(Color.BLACK);
 			}
 		});

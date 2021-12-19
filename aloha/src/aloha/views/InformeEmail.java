@@ -5,7 +5,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +23,7 @@ public class InformeEmail {
 
 	private JFrame frame;
 	private JTextField textFieldEmail;
-	private Usuario usuario;
+	private static Usuario USUARIO;
 
 	/**
 	 * Launch the application.
@@ -46,7 +49,7 @@ public class InformeEmail {
 	}
 
 	public InformeEmail(Usuario usuario) {
-		this.usuario = usuario;
+		USUARIO = usuario;
 		main(null);
 	}
 
@@ -95,25 +98,6 @@ public class InformeEmail {
 		frame.getContentPane().add(textFieldEmail);
 		//
 
-		// butão voltar
-		JButton btnVoltar = new JButton("< voltar");
-		btnVoltar.setOpaque(true);
-		btnVoltar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnVoltar.setForeground(Color.GRAY);
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnVoltar.setFocusable(false);
-		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setBounds(0, 0, 87, 23);
-		frame.getContentPane().add(btnVoltar);
-		
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				ConfirmeOCodigo.main(null);
-			}
-		});
-		//
-
 		// botão avançar
 		JButton btnAvancar = new JButton("Avançar");
 		btnAvancar.setOpaque(true);
@@ -127,12 +111,28 @@ public class InformeEmail {
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					usuario.setEmail(textFieldEmail.getText());
+					USUARIO.setEmail(textFieldEmail.getText());
 					frame.setVisible(false);
-					new CrieASenha(usuario);
-				} catch(RuntimeException ex) {
+					new CrieASenha(USUARIO);
+				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
+			}
+		});
+		//
+
+		// botão voltar
+		JLabel lblVoltar = new JLabel("");
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
+		lblVoltar.setIcon(img);
+		lblVoltar.setBounds(0, 0, 37, 41);
+		frame.getContentPane().add(lblVoltar);
+
+		lblVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.setVisible(false);
+				ConfirmeOCodigo.main(null);
 			}
 		});
 		//
