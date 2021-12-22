@@ -89,12 +89,8 @@ public class CrieASenha {
 		//
 
 		// text field senha
-		textFieldSenha = new JTextField();
-		textFieldSenha.setToolTipText("Primeiro nome");
-		textFieldSenha.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textFieldSenha.setColumns(10);
+		textFieldSenha = ViewUtil.criaTextField(22, 279, 447, 44, null, 26);
 		textFieldSenha.setBorder(ViewUtil.BORDA_ROSA);
-		textFieldSenha.setBounds(22, 279, 447, 44);
 		frame.getContentPane().add(textFieldSenha);
 		//
 

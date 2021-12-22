@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Scanner;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -94,12 +93,9 @@ public class InformeTelefone {
 		//
 		
 		// text field telefone
-		textFieldTelefone = new JTextField();
+		textFieldTelefone = ViewUtil.criaTextField(95, 279, 374, 44, null, 26);
 		textFieldTelefone.setToolTipText("Número do telefone.");
-		textFieldTelefone.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textFieldTelefone.setColumns(10);
 		textFieldTelefone.setBorder(ViewUtil.BORDA_ROSA);
-		textFieldTelefone.setBounds(95, 279, 374, 44);
 		frame.getContentPane().add(textFieldTelefone);
 		//
 		

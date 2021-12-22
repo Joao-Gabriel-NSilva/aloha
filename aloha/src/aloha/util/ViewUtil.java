@@ -2,10 +2,14 @@ package aloha.util;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -32,6 +36,27 @@ public class ViewUtil {
 		lbl.setBounds(0, 0, 37, 41);
 		
 		return lbl;
+	}
+	
+	public static JCheckBox criaCheckBox(Integer x, Integer y, Integer width, Integer height, String text) {
+		JCheckBox checkBox = new JCheckBox(text);
+		checkBox.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
+		checkBox.setBounds(x, y, width, height);
+		checkBox.setFocusable(false);
+		
+		return checkBox;
+	}
+	
+	public static JTextField criaTextField(Integer x, Integer y, Integer width, Integer height, String text, 
+			Integer tamanhoFonte) {
+		JTextField textField = new JTextField();
+		textField.setFont(new Font("Arial Narrow", Font.PLAIN, tamanhoFonte));
+		textField.setText(text);
+		textField.setBounds(x, y, width, height);
+		textField.setFocusable(false);
+		textField.setColumns(10);
+		
+		return textField;
 	}
 	
 }

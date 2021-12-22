@@ -89,11 +89,8 @@ public class InformeEmail {
 		//
 
 		// text field email
-		textFieldEmail = new JTextField();
+		textFieldEmail = ViewUtil.criaTextField(29, 273, 443, 44, null, 26);
 		textFieldEmail.setToolTipText("Seu e-mail");
-		textFieldEmail.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(29, 273, 443, 44);
 		textFieldEmail.setBorder(ViewUtil.BORDA_ROSA);
 		frame.getContentPane().add(textFieldEmail);
 		//

@@ -77,7 +77,7 @@ public class InformeNome {
 		//
 		
 		// text fied nome
-		textFieldNome = new JTextField();
+		textFieldNome = ViewUtil.criaTextField(29, 302, 443, 44, "Primeiro nome", 26);
 		textFieldNome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -89,18 +89,13 @@ public class InformeNome {
 			}
 		});
 		textFieldNome.setForeground(Color.GRAY);
-		textFieldNome.setText("Primeiro nome");
 		textFieldNome.setToolTipText("Primeiro nome");
-		textFieldNome.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textFieldNome.setBounds(29, 302, 443, 44);
-		textFieldNome.setColumns(10);
 		textFieldNome.setBorder(ViewUtil.BORDA_ROSA);
-		textFieldNome.setFocusable(false);
 		frame.getContentPane().add(textFieldNome);
 		//
 		
 		// text field sobrenome
-		textFieldSobrenome = new JTextField();
+		textFieldSobrenome = ViewUtil.criaTextField(29, 393, 443, 44, "Sobrenome", 26);
 		textFieldSobrenome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -112,13 +107,8 @@ public class InformeNome {
 			}
 		});
 		textFieldSobrenome.setForeground(Color.GRAY);
-		textFieldSobrenome.setText("Sobrenome");
 		textFieldSobrenome.setToolTipText("Sobrenome");
-		textFieldSobrenome.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textFieldSobrenome.setColumns(10);
-		textFieldSobrenome.setBounds(29, 393, 443, 44);
 		textFieldSobrenome.setBorder(ViewUtil.BORDA_ROSA);
-		textFieldSobrenome.setFocusable(false);
 		frame.getContentPane().add(textFieldSobrenome);
 		//
 		

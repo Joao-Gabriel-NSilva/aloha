@@ -67,12 +67,9 @@ public class ConfirmeOCodigo {
 		frame.getContentPane().setLayout(null);
 
 		// text field código
-		textField = new JTextField();
+		textField = ViewUtil.criaTextField(22, 279, 447, 44, null, 26);
 		textField.setToolTipText("Código que lhe foi enviado");
-		textField.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		textField.setColumns(10);
 		textField.setBorder(ViewUtil.BORDA_ROSA);
-		textField.setBounds(54, 216, 384, 44);
 		frame.getContentPane().add(textField);
 		//
 
