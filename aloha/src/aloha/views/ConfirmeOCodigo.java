@@ -84,12 +84,8 @@ public class ConfirmeOCodigo {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = new JLabel("");
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
-		lblVoltar.setIcon(img);
-		lblVoltar.setBounds(0, 0, 37, 41);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
 		frame.getContentPane().add(lblVoltar);
-
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -111,15 +107,8 @@ public class ConfirmeOCodigo {
 		frame.getContentPane().add(btnNoRecebeu);
 
 		// botão avançar
-		JButton btnAvancar = new JButton("Avançar");
-		btnAvancar.setOpaque(true);
-		btnAvancar.setForeground(Color.BLACK);
-		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnAvancar.setContentAreaFilled(false);
-		btnAvancar.setBorder(ViewUtil.BORDA_ROSA);
-		btnAvancar.setBounds(54, 294, 384, 44);
+		JButton btnAvancar = ViewUtil.criaBotao(54, 294, 384, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
-
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

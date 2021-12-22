@@ -129,16 +129,10 @@ public class InformeTelefone {
 		//
 		
 		// botão avançar
-		JButton btnAvancar = new JButton("Enviar");
-		btnAvancar.setOpaque(true);
-		btnAvancar.setContentAreaFilled(false);
-		btnAvancar.setForeground(Color.BLACK);
-		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnAvancar.setBorder(ViewUtil.BORDA_ROSA);
-		btnAvancar.setBounds(22, 385, 447, 44);
-		frame.getContentPane().add(btnAvancar);
+		JButton btnEnviar = ViewUtil.criaBotao(22, 385, 447, 44, "Enviar");
+		frame.getContentPane().add(btnEnviar);
 		
-		btnAvancar.addActionListener(new ActionListener() {
+		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					USUARIO.setTelefone(comboBoxDDD.getSelectedItem() + textFieldTelefone.getText());
@@ -155,12 +149,8 @@ public class InformeTelefone {
 		//
 		
 		// botão voltar
-		JLabel lblVoltar = new JLabel("");
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
-		lblVoltar.setIcon(img);
-		lblVoltar.setBounds(0, 0, 37, 41);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
 		frame.getContentPane().add(lblVoltar);
-		
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

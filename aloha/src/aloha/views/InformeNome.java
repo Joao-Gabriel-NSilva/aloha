@@ -123,13 +123,7 @@ public class InformeNome {
 		//
 		
 		// botão avançar
-		JButton btnAvancar = new JButton("Avançar");
-		btnAvancar.setOpaque(true);
-		btnAvancar.setContentAreaFilled(false);
-		btnAvancar.setForeground(Color.BLACK);
-		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnAvancar.setBounds(29, 481, 443, 44);
-		btnAvancar.setBorder(ViewUtil.BORDA_ROSA);
+		JButton btnAvancar = ViewUtil.criaBotao(29, 481, 443, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 		
 		btnAvancar.addActionListener(new ActionListener() {

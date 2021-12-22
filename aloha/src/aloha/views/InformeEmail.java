@@ -99,13 +99,7 @@ public class InformeEmail {
 		//
 
 		// botão avançar
-		JButton btnAvancar = new JButton("Avançar");
-		btnAvancar.setOpaque(true);
-		btnAvancar.setContentAreaFilled(false);
-		btnAvancar.setForeground(Color.BLACK);
-		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnAvancar.setBounds(29, 361, 443, 44);
-		btnAvancar.setBorder(ViewUtil.BORDA_ROSA);
+		JButton btnAvancar = ViewUtil.criaBotao(29, 361, 443, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
 		btnAvancar.addActionListener(new ActionListener() {
@@ -122,10 +116,7 @@ public class InformeEmail {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = new JLabel("");
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
-		lblVoltar.setIcon(img);
-		lblVoltar.setBounds(0, 0, 37, 41);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
 		frame.getContentPane().add(lblVoltar);
 
 		lblVoltar.addMouseListener(new MouseAdapter() {

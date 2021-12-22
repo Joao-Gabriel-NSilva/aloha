@@ -1,5 +1,8 @@
 package aloha.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
 
 	private String primeiroNome;
@@ -7,6 +10,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private String senha;
+	private List<String> gostos = new ArrayList<>();
 
 	public String getPrimeiroNome() {
 		return primeiroNome;
@@ -99,6 +103,10 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
+	public List<String> getGostos() {
+		return gostos;
+	}
+
 	private void verificaNumeroNoNome(String string) {
 		for (String i : string.split("")) {
 			try {

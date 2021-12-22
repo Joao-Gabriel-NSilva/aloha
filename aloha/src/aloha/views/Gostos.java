@@ -3,10 +3,13 @@ package aloha.views;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -24,6 +27,7 @@ public class Gostos {
 	private JTextField outraMusica;
 	private JTextField outraComida;
 	private static Usuario USUARIO;
+	private List<ArrayList<Object>> listas = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -83,23 +87,28 @@ public class Gostos {
 		//
 
 		// check box estilos de festa
+		ArrayList<Object> listaFesta = new ArrayList<>();
+		listas.add(listaFesta);
 		JCheckBox chboxRave = new JCheckBox("Rave");
 		chboxRave.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxRave.setBounds(28, 172, 68, 23);
 		chboxRave.setFocusable(false);
 		frame.getContentPane().add(chboxRave);
+		listaFesta.add(chboxRave);
 
 		JCheckBox chboxFestival = new JCheckBox("Festival");
 		chboxFestival.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxFestival.setBounds(124, 172, 73, 23);
 		chboxFestival.setFocusable(false);
 		frame.getContentPane().add(chboxFestival);
+		listaFesta.add(chboxFestival);
 
 		JCheckBox chboxShow = new JCheckBox("Show");
 		chboxShow.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxShow.setBounds(225, 172, 59, 23);
 		chboxShow.setFocusable(false);
 		frame.getContentPane().add(chboxShow);
+		listaFesta.add(chboxShow);
 
 		outraFesta = new JTextField();
 		outraFesta.addMouseListener(new MouseAdapter() {
@@ -115,6 +124,7 @@ public class Gostos {
 		outraFesta.setFocusable(false);
 		frame.getContentPane().add(outraFesta);
 		outraFesta.setColumns(10);
+		listaFesta.add(outraFesta);
 		//
 
 		// lbl musicas
@@ -126,29 +136,35 @@ public class Gostos {
 		//
 
 		// chech box musicas
+		ArrayList<Object> listaMusicas = new ArrayList<>();
+		listas.add(listaMusicas);
 		JCheckBox chboxRap = new JCheckBox("Rap");
 		chboxRap.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxRap.setFocusable(false);
 		chboxRap.setBounds(28, 277, 59, 23);
 		frame.getContentPane().add(chboxRap);
+		listaMusicas.add(chboxRap);
 
 		JCheckBox chboxFunk = new JCheckBox("Funk");
 		chboxFunk.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxFunk.setBounds(125, 277, 68, 23);
 		chboxFunk.setFocusable(false);
 		frame.getContentPane().add(chboxFunk);
+		listaMusicas.add(chboxFunk);
 
 		JCheckBox chboxSertanejo = new JCheckBox("Sertanejo");
 		chboxSertanejo.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxSertanejo.setBounds(231, 277, 85, 23);
 		chboxSertanejo.setFocusable(false);
 		frame.getContentPane().add(chboxSertanejo);
+		listaMusicas.add(chboxSertanejo);
 
 		JCheckBox chboxPagode = new JCheckBox("Pagode");
 		chboxPagode.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxPagode.setBounds(359, 277, 97, 23);
 		chboxPagode.setFocusable(false);
 		frame.getContentPane().add(chboxPagode);
+		listaMusicas.add(chboxPagode);
 
 		JCheckBox chboxPop = new JCheckBox("Pop");
 		chboxPop.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
@@ -156,6 +172,7 @@ public class Gostos {
 		chboxPop.setBounds(28, 317, 63, 23);
 		chboxPop.setFocusable(false);
 		frame.getContentPane().add(chboxPop);
+		listaMusicas.add(chboxPop);
 
 		outraMusica = new JTextField();
 		outraMusica.addMouseListener(new MouseAdapter() {
@@ -171,6 +188,7 @@ public class Gostos {
 		outraMusica.setColumns(10);
 		outraMusica.setBounds(125, 317, 191, 23);
 		frame.getContentPane().add(outraMusica);
+		listaMusicas.add(outraMusica);
 		//
 
 		// lbl bebidas
@@ -182,11 +200,14 @@ public class Gostos {
 		//
 
 		// check box bebidas
+		ArrayList<Object> listaBebidas = new ArrayList<>();
+		listas.add(listaBebidas);
 		JCheckBox chboxCerveja = new JCheckBox("Cerveja");
 		chboxCerveja.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxCerveja.setBounds(29, 415, 85, 23);
 		chboxCerveja.setFocusable(false);
 		frame.getContentPane().add(chboxCerveja);
+		listaBebidas.add(chboxCerveja);
 
 		JCheckBox chboxAlcolicas = new JCheckBox("Alcólicas");
 		chboxAlcolicas.setToolTipText("Bebidas alocólicas em geral. Vodka, Uísque, etc.");
@@ -194,18 +215,21 @@ public class Gostos {
 		chboxAlcolicas.setBounds(136, 415, 97, 23);
 		chboxAlcolicas.setFocusable(false);
 		frame.getContentPane().add(chboxAlcolicas);
+		listaBebidas.add(chboxAlcolicas);
 
 		JCheckBox chboxRefrigerante = new JCheckBox("Refrigerante");
 		chboxRefrigerante.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxRefrigerante.setBounds(255, 415, 106, 23);
 		chboxRefrigerante.setFocusable(false);
 		frame.getContentPane().add(chboxRefrigerante);
+		listaBebidas.add(chboxRefrigerante);
 
 		JCheckBox chboxAgua = new JCheckBox("Água");
 		chboxAgua.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxAgua.setBounds(388, 415, 68, 23);
 		chboxAgua.setFocusable(false);
 		frame.getContentPane().add(chboxAgua);
+		listaBebidas.add(chboxAgua);
 		//
 
 		// lbl comidas
@@ -217,29 +241,35 @@ public class Gostos {
 		//
 
 		// check box comida
+		ArrayList<Object> listaComidas = new ArrayList<>();
+		listas.add(listaComidas);
 		JCheckBox chboxEspetinho = new JCheckBox("Espetinhos");
 		chboxEspetinho.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxEspetinho.setBounds(29, 504, 97, 23);
 		chboxEspetinho.setFocusable(false);
 		frame.getContentPane().add(chboxEspetinho);
+		listaComidas.add(chboxEspetinho);
 
 		JCheckBox chboxComidaBoteco = new JCheckBox("Comida de boteco");
 		chboxComidaBoteco.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxComidaBoteco.setBounds(166, 504, 159, 23);
 		chboxComidaBoteco.setFocusable(false);
 		frame.getContentPane().add(chboxComidaBoteco);
+		listaComidas.add(chboxComidaBoteco);
 
 		JCheckBox chboxLanche = new JCheckBox("Lanche");
 		chboxLanche.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxLanche.setBounds(359, 504, 97, 23);
 		chboxLanche.setFocusable(false);
 		frame.getContentPane().add(chboxLanche);
+		listaComidas.add(chboxLanche);
 
 		JCheckBox chboxPizza = new JCheckBox("Pizza");
 		chboxPizza.setFont(new Font("Arial Narrow", Font.PLAIN, 17));
 		chboxPizza.setBounds(28, 541, 97, 23);
 		chboxPizza.setFocusable(false);
 		frame.getContentPane().add(chboxPizza);
+		listaComidas.add(chboxPizza);
 
 		outraComida = new JTextField();
 		outraComida.addMouseListener(new MouseAdapter() {
@@ -255,31 +285,42 @@ public class Gostos {
 		outraComida.setColumns(10);
 		outraComida.setBounds(166, 541, 159, 23);
 		frame.getContentPane().add(outraComida);
+		listaComidas.add(outraComida);
 		//
 
 		// botão avançar
-		JButton btnAvancar = new JButton("Avançar");
-		btnAvancar.setOpaque(true);
-		btnAvancar.setForeground(Color.BLACK);
-		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnAvancar.setContentAreaFilled(false);
-		btnAvancar.setBorder(ViewUtil.BORDA_ROSA);
-		btnAvancar.setBounds(35, 590, 422, 44);
+		JButton btnAvancar = ViewUtil.criaBotao(35, 590, 442, 44, "Avançar");
+		btnAvancar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (ArrayList<Object> lista : listas) {
+					for (Object obj : lista) {
+						try {
+							if(((JCheckBox) obj).isSelected()) {
+								USUARIO.getGostos().add(((JCheckBox) obj).getText());
+							}
+						} catch (ClassCastException ex) {
+							if(!((JTextField) obj).getText().equals("Outra") & 
+									!((JTextField) obj).getText().trim().isEmpty()) {
+								USUARIO.getGostos().add(((JTextField) obj).getText());
+							}
+						}
+					}
+				}
+				System.out.println(USUARIO.getGostos());
+			}
+		});
 		frame.getContentPane().add(btnAvancar);
 		//
 
 		// botão voltar
-		JLabel lblVoltar = new JLabel("");
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
-		lblVoltar.setIcon(img);
-		lblVoltar.setBounds(0, 0, 37, 41);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
 		frame.getContentPane().add(lblVoltar);
 
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				InformeNome.main(null);
+				ConhecerMelhor.main(null);
 			}
 		});
 		//

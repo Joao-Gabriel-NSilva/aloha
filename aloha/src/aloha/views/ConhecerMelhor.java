@@ -72,40 +72,25 @@ public class ConhecerMelhor {
 		//
 		
 		// botao sim
-		JButton btnSim = new JButton("Sim");
+		JButton btnSim = ViewUtil.criaBotao(42, 373, 188, 44, "Sim");
 		btnSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				new Gostos(USUARIO);
 			}
 		});
-		btnSim.setOpaque(true);
-		btnSim.setForeground(Color.BLACK);
-		btnSim.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnSim.setContentAreaFilled(false);
-		btnSim.setBorder(ViewUtil.BORDA_ROSA);
-		btnSim.setBounds(42, 373, 188, 44);
 		btnSim.setFocusable(false);
 		frame.getContentPane().add(btnSim);
 		//
 		
 		// botao nao
-		JButton btnAgoraNao = new JButton("Agora não");
-		btnAgoraNao.setOpaque(true);
-		btnAgoraNao.setForeground(Color.BLACK);
-		btnAgoraNao.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		btnAgoraNao.setContentAreaFilled(false);
-		btnAgoraNao.setBorder(ViewUtil.BORDA_ROSA);
-		btnAgoraNao.setBounds(272, 373, 188, 44);
+		JButton btnAgoraNao = ViewUtil.criaBotao(272, 373, 188, 44, "Agora não");
 		btnAgoraNao.setFocusable(false);
 		frame.getContentPane().add(btnAgoraNao);
 		//
 
 		// botão voltar
-		JLabel lblVoltar = new JLabel("");
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/botao_voltar.png"));
-		lblVoltar.setIcon(img);
-		lblVoltar.setBounds(0, 0, 37, 41);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
 		frame.getContentPane().add(lblVoltar);
 
 		lblVoltar.addMouseListener(new MouseAdapter() {
