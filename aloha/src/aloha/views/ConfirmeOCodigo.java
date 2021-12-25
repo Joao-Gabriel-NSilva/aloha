@@ -1,6 +1,5 @@
 package aloha.views;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,13 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
@@ -24,9 +21,11 @@ public class ConfirmeOCodigo {
 	private JFrame frame;
 	private JTextField textField;
 	private static Usuario USUARIO;
+	private static JFrame FRAME_ANTERIOR;
 
 	/**
 	 * Launch the application.
+	 * 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -43,40 +42,34 @@ public class ConfirmeOCodigo {
 
 	/**
 	 * Create the application.
+	 * 
 	 */
 	public ConfirmeOCodigo() {
 		initialize();
 	}
 
-	public ConfirmeOCodigo(Usuario usuario) {
+	public ConfirmeOCodigo(Usuario usuario, JFrame frameAnterior) {
 		USUARIO = usuario;
+		FRAME_ANTERIOR = frameAnterior;
 		main(null);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 508, 685);
-		frame.setLocation(700, 200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
+		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
+		frame.setTitle("Confirme o código!");
 
 		// text field código
-		textField = ViewUtil.criaTextField(22, 279, 447, 44, null, 26);
+		textField = ViewUtil.criaTextField(20, 212, 400, 60, null, 26);
 		textField.setToolTipText("Código que lhe foi enviado");
-		textField.setBorder(ViewUtil.BORDA_ROSA);
 		frame.getContentPane().add(textField);
 		//
 
 		// label confirme seu código
-		JLabel lblConfirmeSeuCdigo = new JLabel("Confirme seu código");
-		lblConfirmeSeuCdigo.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		lblConfirmeSeuCdigo.setBounds(132, 116, 228, 62);
+		JLabel lblConfirmeSeuCdigo = ViewUtil.criaJLabel(115, 50, 260, 62, "Confirme seu código!", 30);
 		frame.getContentPane().add(lblConfirmeSeuCdigo);
 		//
 
@@ -87,24 +80,18 @@ public class ConfirmeOCodigo {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				InformeTelefone.main(null);
+				FRAME_ANTERIOR.setVisible(true);
 			}
 		});
 		//
 
 		// botão não recebeu
-		JButton btnNoRecebeu = new JButton("Não recebeu?");
-		btnNoRecebeu.setOpaque(true);
-		btnNoRecebeu.setHorizontalAlignment(SwingConstants.LEADING);
-		btnNoRecebeu.setForeground(Color.GRAY);
-		btnNoRecebeu.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
-		btnNoRecebeu.setFocusable(false);
-		btnNoRecebeu.setContentAreaFilled(false);
-		btnNoRecebeu.setBounds(178, 349, 149, 36);
+		JButton btnNoRecebeu = ViewUtil.criaBotao(165, 450, 115, 36, "Não recebeu?");
+		btnNoRecebeu.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
 		frame.getContentPane().add(btnNoRecebeu);
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(54, 294, 384, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(160, 400, 130, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,7 +101,7 @@ public class ConfirmeOCodigo {
 					 */
 
 					frame.setVisible(false);
-					new InformeEmail(USUARIO);
+					new InformeEmail(USUARIO, frame);
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}

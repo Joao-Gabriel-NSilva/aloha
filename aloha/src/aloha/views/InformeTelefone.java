@@ -1,6 +1,5 @@
 package aloha.views;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,7 @@ public class InformeTelefone {
 	private JTextField textFieldTelefone;
 	private JComboBox<String> comboBoxDDD;
 	private static Usuario USUARIO;
+	private static JFrame FRAME_ANTERIOR;
 
 	/**
 	 * Launch the application.
@@ -51,8 +51,9 @@ public class InformeTelefone {
 		initialize();
 	}
 
-	public InformeTelefone(Usuario novo_usuario) {
+	public InformeTelefone(Usuario novo_usuario, JFrame frameAnterior) {
 		USUARIO = novo_usuario;
+		FRAME_ANTERIOR = frameAnterior;
 		main(null);
 	}
 
@@ -60,42 +61,26 @@ public class InformeTelefone {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 508, 685);
-		frame.setLocation(700, 200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
+		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
+		frame.setTitle("Informe seu número!");
 
 		// label 1
-		JLabel lblNewLabel = new JLabel("Qual é o seu telefone?");
-		lblNewLabel.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(78, 50, 335, 62);
+		JLabel lblNewLabel = ViewUtil.criaJLabel(100, 50, 335, 62, "Qual é o seu telefone?", 30);
 		frame.getContentPane().add(lblNewLabel);
 		//
 
 		// label 2 e 3
-		JLabel lbl2 = new JLabel("Precisamos te enviar um código de "
-				+ "confirmação para garantir");
-		lbl2.setHorizontalAlignment(SwingConstants.LEFT);
-		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
-		lbl2.setBounds(22, 123, 447, 41);
+		JLabel lbl2 = ViewUtil.criaJLabel(30, 123, 447, 41, "Precisamos te enviar um código de "
+				+ "confirmação para", 20);
 		frame.getContentPane().add(lbl2);
 		
-		JLabel lbl3 = new JLabel("que só você terá acesso á sua conta.");
-		lbl3.setHorizontalAlignment(SwingConstants.LEFT);
-		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
-		lbl3.setBounds(22, 151, 447, 41);
+		JLabel lbl3 = ViewUtil.criaJLabel(30, 151, 447, 41, "garantir que só você terá acesso á sua conta.", 20);
 		frame.getContentPane().add(lbl3);
 		//
 		
 		// text field telefone
-		textFieldTelefone = ViewUtil.criaTextField(95, 279, 374, 44, null, 26);
-		textFieldTelefone.setToolTipText("Número do telefone.");
-		textFieldTelefone.setBorder(ViewUtil.BORDA_ROSA);
+		textFieldTelefone = ViewUtil.criaTextField(95, 279, 334, 60, null, 26);
+		textFieldTelefone.setToolTipText("Seu número do telefone.");
 		frame.getContentPane().add(textFieldTelefone);
 		//
 		
@@ -103,8 +88,7 @@ public class InformeTelefone {
 		comboBoxDDD = new JComboBox<String>();
 		comboBoxDDD.setToolTipText("DDD");
 		comboBoxDDD.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		comboBoxDDD.setBorder(ViewUtil.BORDA_ROSA);
-		comboBoxDDD.setBounds(23, 279, 62, 44);
+		comboBoxDDD.setBounds(23, 279, 62, 60);
 		comboBoxDDD.addItem("");
 		frame.getContentPane().add(comboBoxDDD);
 		
@@ -125,7 +109,7 @@ public class InformeTelefone {
 		//
 		
 		// botão avançar
-		JButton btnEnviar = ViewUtil.criaBotao(22, 385, 447, 44, "Enviar");
+		JButton btnEnviar = ViewUtil.criaBotao(170, 500, 120, 44, "Enviar");
 		frame.getContentPane().add(btnEnviar);
 		
 		btnEnviar.addActionListener(new ActionListener() {
@@ -136,7 +120,7 @@ public class InformeTelefone {
 					 * envia sms
 					 */
 					frame.setVisible(false);
-					new ConfirmeOCodigo(USUARIO);
+					new ConfirmeOCodigo(USUARIO, frame);
 				} catch(RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
@@ -151,7 +135,7 @@ public class InformeTelefone {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				InformeNome.main(null);
+				FRAME_ANTERIOR.setVisible(true);
 			}
 		});
 		//

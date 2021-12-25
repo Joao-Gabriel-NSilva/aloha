@@ -2,7 +2,6 @@ package aloha.views;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,9 +14,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
+import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
 
 public class Gostos {
@@ -28,6 +27,7 @@ public class Gostos {
 	private JTextField outraComida;
 	private static Usuario USUARIO;
 	private List<ArrayList<Object>> listas = new ArrayList<>();
+	private static JFrame FRAME_ANTERIOR;
 
 	/**
 	 * Launch the application.
@@ -52,8 +52,9 @@ public class Gostos {
 		initialize();
 	}
 
-	public Gostos(Usuario usuario) {
+	public Gostos(Usuario usuario, JFrame frameAnterior) {
 		USUARIO = usuario;
+		FRAME_ANTERIOR = frameAnterior;
 		main(null);
 	}
 
@@ -61,28 +62,16 @@ public class Gostos {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 508, 685);
-		frame.setLocation(700, 200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
+		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
+		frame.setTitle("Quais são seus gostos?");
 
 		// lbl gostos
-		JLabel lbl2 = new JLabel("Quais são os seus gostos?");
-		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		lbl2.setHorizontalAlignment(SwingConstants.LEFT);
-		lbl2.setBounds(95, 45, 311, 62);
+		JLabel lbl2 = ViewUtil.criaJLabel(75, 45, 311, 62, "Quais são os seus gostos?", 30);
 		frame.getContentPane().add(lbl2);
 		//
 
 		// lbl Festas
-		JLabel lblFestas = new JLabel("Quais são os seus estilos de festa favoritos?");
-		lblFestas.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFestas.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblFestas.setBounds(45, 114, 411, 45);
+		JLabel lblFestas = ViewUtil.criaJLabel(45, 114, 411, 45, "Quais são os seus estilos de festa favoritos?", 22);
 		frame.getContentPane().add(lblFestas);
 		//
 
@@ -102,7 +91,9 @@ public class Gostos {
 		frame.getContentPane().add(chboxShow);
 		listaFesta.add(chboxShow);
 
-		outraFesta = ViewUtil.criaTextField(312, 171, 150, 23, "Outra", 17);
+		outraFesta = ViewUtil.criaTextField(312, 171, 100, 23, "Outra", 17);
+		outraFesta.setBorder(new TextBubbleBorder(Color.BLACK,1,5,0));
+		outraFesta.setFocusable(false);
 		outraFesta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -115,10 +106,7 @@ public class Gostos {
 		//
 
 		// lbl musicas
-		JLabel lblMusicas = new JLabel("Quais são os seus estilos de música favoritos?");
-		lblMusicas.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMusicas.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblMusicas.setBounds(39, 220, 423, 45);
+		JLabel lblMusicas = ViewUtil.criaJLabel(39, 220, 423, 45, "Quais são seus estilos de música favoritos?", 22);
 		frame.getContentPane().add(lblMusicas);
 		//
 
@@ -138,7 +126,7 @@ public class Gostos {
 		frame.getContentPane().add(chboxSertanejo);
 		listaMusicas.add(chboxSertanejo);
 
-		JCheckBox chboxPagode = ViewUtil.criaCheckBox(359, 277, 97, 23, "Pagode");
+		JCheckBox chboxPagode = ViewUtil.criaCheckBox(349, 277, 75, 23, "Pagode");
 		frame.getContentPane().add(chboxPagode);
 		listaMusicas.add(chboxPagode);
 
@@ -146,7 +134,9 @@ public class Gostos {
 		frame.getContentPane().add(chboxPop);
 		listaMusicas.add(chboxPop);
 
-		outraMusica = ViewUtil.criaTextField(125, 317, 191, 23, "Outra", 17);
+		outraMusica = ViewUtil.criaTextField(125, 317, 100, 23, "Outra", 17);
+		outraMusica.setBorder(new TextBubbleBorder(Color.BLACK,1,5,0));
+		outraMusica.setFocusable(false);
 		outraMusica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -159,10 +149,7 @@ public class Gostos {
 		//
 
 		// lbl bebidas
-		JLabel lblBebidas = new JLabel("Quais são as suas bebidas favoritas?");
-		lblBebidas.setHorizontalAlignment(SwingConstants.LEFT);
-		lblBebidas.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblBebidas.setBounds(76, 365, 341, 43);
+		JLabel lblBebidas = ViewUtil.criaJLabel(76, 365, 341, 43, "Quais são suas bebidas favoritas?", 22);
 		frame.getContentPane().add(lblBebidas);
 		//
 
@@ -170,29 +157,26 @@ public class Gostos {
 		ArrayList<Object> listaBebidas = new ArrayList<>();
 		listas.add(listaBebidas);
 		
-		JCheckBox chboxCerveja = ViewUtil.criaCheckBox(29, 415, 85, 23, "Cerveja");
+		JCheckBox chboxCerveja = ViewUtil.criaCheckBox(29, 415, 75, 23, "Cerveja");
 		frame.getContentPane().add(chboxCerveja);
 		listaBebidas.add(chboxCerveja);
 
-		JCheckBox chboxAlcolicas = ViewUtil.criaCheckBox(136, 415, 97, 23, "Alcólicas");
+		JCheckBox chboxAlcolicas = ViewUtil.criaCheckBox(124, 415, 80, 23, "Alcólicas");
 		chboxAlcolicas.setToolTipText("Bebidas alocólicas em geral. Vodka, Uísque, etc.");
 		frame.getContentPane().add(chboxAlcolicas);
 		listaBebidas.add(chboxAlcolicas);
 
-		JCheckBox chboxRefrigerante = ViewUtil.criaCheckBox(255, 415, 106, 23, "Refrigerante");
+		JCheckBox chboxRefrigerante = ViewUtil.criaCheckBox(224, 415, 105, 23, "Refrigerante");
 		frame.getContentPane().add(chboxRefrigerante);
 		listaBebidas.add(chboxRefrigerante);
 
-		JCheckBox chboxAgua = ViewUtil.criaCheckBox(388, 415, 68, 23, "Água");
+		JCheckBox chboxAgua = ViewUtil.criaCheckBox(349, 415, 68, 23, "Água");
 		frame.getContentPane().add(chboxAgua);
 		listaBebidas.add(chboxAgua);
 		//
 
 		// lbl comidas
-		JLabel lblComidas = new JLabel("Quais suas comidas favoritas?");
-		lblComidas.setHorizontalAlignment(SwingConstants.LEFT);
-		lblComidas.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblComidas.setBounds(102, 450, 289, 39);
+		JLabel lblComidas = ViewUtil.criaJLabel(76, 450, 289, 39, "Quais são suas comidas favoritas?", 22);
 		frame.getContentPane().add(lblComidas);
 		//
 
@@ -200,23 +184,25 @@ public class Gostos {
 		ArrayList<Object> listaComidas = new ArrayList<>();
 		listas.add(listaComidas);
 		
-		JCheckBox chboxEspetinho = ViewUtil.criaCheckBox(29, 504, 97, 23, "Espetinho");
+		JCheckBox chboxEspetinho = ViewUtil.criaCheckBox(29, 504, 90, 23, "Espetinho");
 		frame.getContentPane().add(chboxEspetinho);
 		listaComidas.add(chboxEspetinho);
 
-		JCheckBox chboxComidaBoteco = ViewUtil.criaCheckBox(166, 504, 159, 23, "Comida de boteco");
+		JCheckBox chboxComidaBoteco = ViewUtil.criaCheckBox(139, 504, 142, 23, "Comida de boteco");
 		frame.getContentPane().add(chboxComidaBoteco);
 		listaComidas.add(chboxComidaBoteco);
 
-		JCheckBox chboxLanche = ViewUtil.criaCheckBox(359, 504, 97, 23, "Lanche");
+		JCheckBox chboxLanche = ViewUtil.criaCheckBox(301, 504, 72, 23, "Lanche");
 		frame.getContentPane().add(chboxLanche);
 		listaComidas.add(chboxLanche);
 
-		JCheckBox chboxPizza = ViewUtil.criaCheckBox(28, 541, 97, 23, "Pizza");
+		JCheckBox chboxPizza = ViewUtil.criaCheckBox(28, 541, 60, 23, "Pizza");
 		frame.getContentPane().add(chboxPizza);
 		listaComidas.add(chboxPizza);
 
-		outraComida = ViewUtil.criaTextField(166, 541, 159, 23, "Outra", 17);
+		outraComida = ViewUtil.criaTextField(139, 541, 100, 23, "Outra", 17);
+		outraComida.setBorder(new TextBubbleBorder(Color.BLACK,1,5,0));
+		outraComida.setFocusable(false);
 		outraComida.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -260,7 +246,7 @@ public class Gostos {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				ConhecerMelhor.main(null);
+				FRAME_ANTERIOR.setVisible(true);
 			}
 		});
 		//

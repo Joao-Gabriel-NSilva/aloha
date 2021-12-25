@@ -1,20 +1,16 @@
 package aloha.views;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
@@ -24,6 +20,7 @@ public class CrieASenha {
 	private JFrame frame;
 	private JTextField textFieldSenha;
 	private static Usuario USUARIO;
+	private static JFrame FRAME_ANTERIOR;
 
 	/**
 	 * Launch the application.
@@ -48,8 +45,9 @@ public class CrieASenha {
 		initialize();
 	}
 
-	public CrieASenha(Usuario usuario) {
+	public CrieASenha(Usuario usuario, JFrame frameAnterior) {
 		USUARIO = usuario;
+		FRAME_ANTERIOR = frameAnterior;
 		main(null);
 	}
 
@@ -57,52 +55,39 @@ public class CrieASenha {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 508, 685);
-		frame.setLocation(700, 200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
+		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
+		frame.setTitle("Crie uma senha!");
 
 		// label 1
-		JLabel lblNewLabel = new JLabel("Crie sua senha");
-		lblNewLabel.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(78, 50, 335, 62);
+		JLabel lblNewLabel = ViewUtil.criaJLabel(115, 50, 260, 62, "Crie sua senha!", 30);
 		frame.getContentPane().add(lblNewLabel);
 		//
 
-		// label 2 e 3
-		JLabel lbl2 = new JLabel("Escolha apenas números com pelo menos 8 dígitos. Não use");
-		lbl2.setHorizontalAlignment(SwingConstants.LEFT);
-		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
-		lbl2.setBounds(16, 123, 460, 41);
+		// label 2, 3 e 4
+		JLabel lbl2 = ViewUtil.criaJLabel(16, 123, 460, 41, "Escolha apenas números com pelo menos 8 dígitos. Não", 20);
 		frame.getContentPane().add(lbl2);
 
-		JLabel lbl3 = new JLabel("números sequenciais (ex: 123 ou 321) ou repetidos (ex: 111).");
-		lbl3.setHorizontalAlignment(SwingConstants.LEFT);
-		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
-		lbl3.setBounds(16, 151, 460, 41);
+		JLabel lbl3 =  ViewUtil.criaJLabel(16, 151, 460, 41, "use números sequenciais (ex: 123 ou 321) "
+				+ "ou repetidos", 20);
 		frame.getContentPane().add(lbl3);
+		
+		JLabel lbl4 = ViewUtil.criaJLabel(16, 179, 460, 41, "(ex: 111).", 20);
+		frame.getContentPane().add(lbl4);
 		//
 
 		// text field senha
-		textFieldSenha = ViewUtil.criaTextField(22, 279, 447, 44, null, 26);
-		textFieldSenha.setBorder(ViewUtil.BORDA_ROSA);
+		textFieldSenha = ViewUtil.criaTextField(20, 303, 400, 65, null, 26);
 		frame.getContentPane().add(textFieldSenha);
 		//
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(22, 353, 447, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(160, 500, 130, 44, "Avançar");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					USUARIO.setSenha(textFieldSenha.getText());
 					frame.setVisible(false);
-					new ConhecerMelhor(USUARIO);
-					ConhecerMelhor.main(null);
+					new ConhecerMelhor(USUARIO, frame);
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
@@ -118,7 +103,7 @@ public class CrieASenha {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				InformeEmail.main(null);
+				FRAME_ANTERIOR.setVisible(true);
 			}
 		});
 		//
