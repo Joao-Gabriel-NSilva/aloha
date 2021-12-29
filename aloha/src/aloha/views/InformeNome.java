@@ -27,6 +27,7 @@ public class InformeNome {
 	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/ligth_theme.png"));
 	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/dark_theme.png"));
 	private Thread thread;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -125,15 +126,15 @@ public class InformeNome {
 
 		// label 2
 		JLabel lblInformeSeuNome = ViewUtil.criaJLabel(45, 169, 400, 36,
-				"Informe seu nome verdadeiro. Não utilize o nome", 20);
+				"Informe seu nome verdadeiro. Não utilize o", 25);
 		frame.getContentPane().add(lblInformeSeuNome);
 
-		JLabel lblInformeSeuNome2 = ViewUtil.criaJLabel(45, 200, 400, 36, "de terceiros.", 20);
+		JLabel lblInformeSeuNome2 = ViewUtil.criaJLabel(45, 200, 400, 36, "nome de terceiros.", 25);
 		frame.getContentPane().add(lblInformeSeuNome2);
 		//
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(160, 550, 130, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(160, 550, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
 		InformeNome a = this;
@@ -147,7 +148,11 @@ public class InformeNome {
 					frame.setVisible(false);
 					TarefaAtualizaLabel.roda = false;
 					
-					new InformeTelefone(novo_usuario, a);
+					if(FRAME_SEGUINTE != null) {
+						FRAME_SEGUINTE.setVisible(true);
+					} else {
+						new InformeTelefone(novo_usuario, a);
+					}
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}

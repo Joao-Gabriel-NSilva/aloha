@@ -1,7 +1,6 @@
 package aloha.views;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,7 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.SimpleEmail;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
@@ -23,6 +24,7 @@ public class InformeEmail {
 	private JTextField textFieldEmail;
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -80,15 +82,26 @@ public class InformeEmail {
 		//
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(160, 450, 130, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(160, 450, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					USUARIO.setEmail(textFieldEmail.getText());
+					
+					if(enviaEmail(USUARIO)) {
+						JOptionPane.showMessageDialog(null, "Email enviado para " + USUARIO.getEmail(), "Enviado!", 
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					
 					frame.setVisible(false);
-					new CrieASenha(USUARIO, frame);
+					
+					if(FRAME_SEGUINTE != null) {
+						FRAME_SEGUINTE.setVisible(true);
+					} else {
+						new CrieASenha(USUARIO, frame);
+					}
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
@@ -105,9 +118,34 @@ public class InformeEmail {
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				FRAME_ANTERIOR.setVisible(true);
+				ConfirmeOCodigo.FRAME_SEGUINTE = frame;
 			}
 		});
 		//
+	}
+	
+	private boolean enviaEmail(Usuario usuario) {
+		String meuEmail = "joao10x18ii@gmail.com";
+		String senha = "k-onj18g180604";
+		
+		SimpleEmail email = new SimpleEmail();
+		email.setHostName("smtp.gmail.com");
+		email.setSmtpPort(465);
+		email.setAuthenticator(new DefaultAuthenticator(meuEmail, senha));
+		email.setSSLOnConnect(true);
+		
+		try {
+			email.setFrom(meuEmail);
+			email.setSubject("Bem vindo ao Aloha!");
+			email.setMsg("Olá, " + usuario.getPrimeiroNome() + "!");
+			email.addTo(usuario.getEmail());
+			email.send();
+			return true;
+			
+			
+		} catch(Exception e) {
+			throw new RuntimeException("Falha ao enviar email. Tem certeza que informou o email correto"); 
+		}
 	}
 
 }

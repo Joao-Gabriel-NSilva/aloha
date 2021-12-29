@@ -27,6 +27,7 @@ public class InformeTelefone {
 	private JComboBox<String> comboBoxDDD;
 	private static Usuario USUARIO;
 	private static InformeNome FRAME_ANTERIOR;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -120,7 +121,11 @@ public class InformeTelefone {
 					 * envia sms
 					 */
 					frame.setVisible(false);
-					new ConfirmeOCodigo(USUARIO, frame);
+					if(FRAME_SEGUINTE != null) {
+						FRAME_SEGUINTE.setVisible(true);
+					} else {
+						new ConfirmeOCodigo(USUARIO, frame);
+					}
 				} catch(RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
@@ -134,7 +139,9 @@ public class InformeTelefone {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				InformeNome.FRAME_SEGUINTE = frame;
 				frame.setVisible(false);
+				
 				Runnable tarefa = new TarefaAtualizaLabel(FRAME_ANTERIOR.getLblAloha(), FRAME_ANTERIOR.getTextFieldNome());
 				TarefaAtualizaLabel.roda = true;
 				FRAME_ANTERIOR.setThread(new Thread(tarefa, "Thread atualizador de label"));

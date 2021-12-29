@@ -26,7 +26,7 @@ public class ViewUtil {
 		botao.setOpaque(true);
 		botao.setContentAreaFilled(false);
 		botao.setForeground(COR_ATUAL_LETRAS);
-		botao.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
+		botao.setFont(new Font("Arial Narrow", Font.PLAIN, 35));
 		botao.setBounds(x, y, width, height);
 		botao.setFocusable(false);
 		botao.setBorderPainted(false);

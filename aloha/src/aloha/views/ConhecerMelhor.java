@@ -20,6 +20,7 @@ public class ConhecerMelhor {
 	private JFrame frame;
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -67,7 +68,11 @@ public class ConhecerMelhor {
 		btnSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				new Gostos(USUARIO, frame);
+				if(FRAME_SEGUINTE != null) {
+					FRAME_SEGUINTE.setVisible(true);
+				} else {
+					new Gostos(USUARIO, frame);
+				}
 			}
 		});
 		btnSim.setFocusable(false);
@@ -75,7 +80,7 @@ public class ConhecerMelhor {
 		//
 		
 		// botao nao
-		JButton btnAgoraNao = ViewUtil.criaBotao(240, 373, 150, 44, "Agora não");
+		JButton btnAgoraNao = ViewUtil.criaBotao(220, 373, 170, 44, "Agora não");
 		btnAgoraNao.setFocusable(false);
 		frame.getContentPane().add(btnAgoraNao);
 		//
@@ -89,6 +94,7 @@ public class ConhecerMelhor {
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				FRAME_ANTERIOR.setVisible(true);
+				CrieASenha.FRAME_SEGUINTE = frame;
 			}
 		});
 		//

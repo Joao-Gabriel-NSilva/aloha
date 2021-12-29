@@ -28,6 +28,7 @@ public class Gostos {
 	private static Usuario USUARIO;
 	private List<ArrayList<Object>> listas = new ArrayList<>();
 	private static JFrame FRAME_ANTERIOR;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -215,7 +216,7 @@ public class Gostos {
 		//
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(35, 590, 442, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(05, 590, 442, 44, "Avançar");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (ArrayList<Object> lista : listas) {
@@ -247,6 +248,7 @@ public class Gostos {
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				FRAME_ANTERIOR.setVisible(true);
+				ConhecerMelhor.FRAME_SEGUINTE = frame;
 			}
 		});
 		//

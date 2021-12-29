@@ -21,6 +21,7 @@ public class CrieASenha {
 	private JTextField textFieldSenha;
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -81,13 +82,18 @@ public class CrieASenha {
 		//
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(160, 500, 130, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(160, 500, 140, 44, "Avançar");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					USUARIO.setSenha(textFieldSenha.getText());
+					
 					frame.setVisible(false);
-					new ConhecerMelhor(USUARIO, frame);
+					if(FRAME_SEGUINTE != null) {
+						FRAME_SEGUINTE.setVisible(true);
+					} else {
+						new ConhecerMelhor(USUARIO, frame);
+					}
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
@@ -104,6 +110,7 @@ public class CrieASenha {
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				FRAME_ANTERIOR.setVisible(true);
+				InformeEmail.FRAME_SEGUINTE = frame;
 			}
 		});
 		//

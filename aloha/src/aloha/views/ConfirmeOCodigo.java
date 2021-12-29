@@ -22,6 +22,7 @@ public class ConfirmeOCodigo {
 	private JTextField textField;
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
+	public static JFrame FRAME_SEGUINTE;
 
 	/**
 	 * Launch the application.
@@ -81,6 +82,7 @@ public class ConfirmeOCodigo {
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				FRAME_ANTERIOR.setVisible(true);
+				InformeTelefone.FRAME_SEGUINTE = frame;
 			}
 		});
 		//
@@ -91,7 +93,7 @@ public class ConfirmeOCodigo {
 		frame.getContentPane().add(btnNoRecebeu);
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(160, 400, 130, 44, "Avançar");
+		JButton btnAvancar = ViewUtil.criaBotao(160, 400, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +103,11 @@ public class ConfirmeOCodigo {
 					 */
 
 					frame.setVisible(false);
-					new InformeEmail(USUARIO, frame);
+					if(FRAME_SEGUINTE != null) {
+						FRAME_SEGUINTE.setVisible(true);
+					} else {
+						new InformeEmail(USUARIO, frame);
+					}
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}

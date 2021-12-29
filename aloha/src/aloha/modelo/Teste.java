@@ -1,29 +1,34 @@
 package aloha.modelo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.SimpleEmail;
 
 public class Teste {
 
 	public static void main(String args[]) {
-		Scanner scanner;
+		
+		String meuEmail = "joao10x18ii@gmail.com";
+		String senha = "k-onj18g180604";
+		
+		SimpleEmail email = new SimpleEmail();
+		email.setHostName("smtp.gmail.com");
+		email.setSmtpPort(465);
+		email.setAuthenticator(new DefaultAuthenticator(meuEmail, senha));
+		email.setSSLOnConnect(true);
+		
 		try {
-			scanner = new Scanner(new File("dados/DDDs.csv"), "UTF-8");
+			email.setFrom(meuEmail);
+			email.setSubject("Testando envio de email");
+			email.setMsg("Olá, esse é um teste");
+			email.addTo("jgabriel10x@gmail.com");
+			email.send();
+			System.out.println("email enviado!");
 			
-			while (scanner.hasNextLine()) {
-				String linha = scanner.nextLine();
-				Scanner linhaScanner = new Scanner(linha);
-				linhaScanner.useDelimiter(";");
-				String ddd = linhaScanner.next();
-				System.out.println(ddd);
-
-				linhaScanner.close();
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
+			
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 	}
 }
