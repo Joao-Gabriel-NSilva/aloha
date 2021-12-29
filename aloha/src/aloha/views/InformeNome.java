@@ -16,15 +16,17 @@ import javax.swing.JTextField;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
+import aloha.util.TarefaAtualizaLabel;
 
 public class InformeNome {
 
 	private JFrame frame;
 	private JTextField textFieldNome;
 	private JTextField textFieldSobrenome;
+	private JLabel lblAloha;
 	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/ligth_theme.png"));
 	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/dark_theme.png"));
-	private String nome;
+	private Thread thread;
 
 	/**
 	 * Launch the application.
@@ -47,6 +49,26 @@ public class InformeNome {
 	 */
 	public InformeNome() {
 		initialize();
+	}
+
+	public Thread getThread() {
+		return thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public JTextField getTextFieldNome() {
+		return textFieldNome;
+	}
+
+	public JLabel getLblAloha() {
+		return lblAloha;
 	}
 
 	/**
@@ -93,14 +115,12 @@ public class InformeNome {
 		//
 
 		// label 1
-		if (!(textFieldNome.getText() == null) & !(textFieldNome.getText().equals("Primeiro nome")) & 
-				!(textFieldNome.getText().isEmpty())) {
-			nome = textFieldNome.getText();
-		} else {
-			nome = "novo usuário";
-		}
-		JLabel lblAloha = ViewUtil.criaJLabel(120, 49, 228, 62, "Aloha, " + nome + "!", 30);
+		lblAloha = ViewUtil.criaJLabel(120, 49, 228, 62, null, 30);
 		frame.getContentPane().add(lblAloha);
+		
+		Runnable tarefa = new TarefaAtualizaLabel(lblAloha, textFieldNome);
+		setThread(new Thread(tarefa, "Thread atualizador de label"));
+		thread.start();
 		//
 
 		// label 2
@@ -116,14 +136,18 @@ public class InformeNome {
 		JButton btnAvancar = ViewUtil.criaBotao(160, 550, 130, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
+		InformeNome a = this;
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Usuario novo_usuario = new Usuario();
 					novo_usuario.setPrimeiroNome(textFieldNome.getText());
 					novo_usuario.setSobrenome(textFieldSobrenome.getText());
+					
 					frame.setVisible(false);
-					new InformeTelefone(novo_usuario, frame);
+					TarefaAtualizaLabel.roda = false;
+					
+					new InformeTelefone(novo_usuario, a);
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}

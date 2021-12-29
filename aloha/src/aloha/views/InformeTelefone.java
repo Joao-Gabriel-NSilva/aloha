@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
+import aloha.util.TarefaAtualizaLabel;
 
 public class InformeTelefone {
 
@@ -26,7 +26,7 @@ public class InformeTelefone {
 	private JTextField textFieldTelefone;
 	private JComboBox<String> comboBoxDDD;
 	private static Usuario USUARIO;
-	private static JFrame FRAME_ANTERIOR;
+	private static InformeNome FRAME_ANTERIOR;
 
 	/**
 	 * Launch the application.
@@ -51,7 +51,7 @@ public class InformeTelefone {
 		initialize();
 	}
 
-	public InformeTelefone(Usuario novo_usuario, JFrame frameAnterior) {
+	public InformeTelefone(Usuario novo_usuario, InformeNome frameAnterior) {
 		USUARIO = novo_usuario;
 		FRAME_ANTERIOR = frameAnterior;
 		main(null);
@@ -135,7 +135,11 @@ public class InformeTelefone {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				FRAME_ANTERIOR.setVisible(true);
+				Runnable tarefa = new TarefaAtualizaLabel(FRAME_ANTERIOR.getLblAloha(), FRAME_ANTERIOR.getTextFieldNome());
+				TarefaAtualizaLabel.roda = true;
+				FRAME_ANTERIOR.setThread(new Thread(tarefa, "Thread atualizador de label"));
+				FRAME_ANTERIOR.getThread().start();
+				FRAME_ANTERIOR.getFrame().setVisible(true);
 			}
 		});
 		//
