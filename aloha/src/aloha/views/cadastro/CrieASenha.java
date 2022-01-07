@@ -1,4 +1,4 @@
-package aloha.views;
+package aloha.views.cadastro;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;

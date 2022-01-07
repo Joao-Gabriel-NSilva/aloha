@@ -7,8 +7,8 @@ public class Teste {
 
 	public static void main(String args[]) {
 		
-		String meuEmail = "joao10x18ii@gmail.com";
-		String senha = "k-onj18g180604";
+		String meuEmail = "alohausuario1@gmail.com";
+		String senha = "@ADMaloha00";
 		
 		SimpleEmail email = new SimpleEmail();
 		email.setHostName("smtp.gmail.com");

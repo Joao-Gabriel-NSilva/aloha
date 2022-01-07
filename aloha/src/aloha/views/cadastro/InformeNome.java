@@ -1,4 +1,4 @@
-package aloha.views;
+package aloha.views.cadastro;
 
 import java.awt.Color;
 import java.awt.EventQueue;
