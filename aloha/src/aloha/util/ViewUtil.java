@@ -14,6 +14,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.SimpleEmail;
+
+import aloha.modelo.Usuario;
+
 public class ViewUtil {
 
 	public static Border BORDA_ROSA = new LineBorder(new Color(255, 20, 147), 3);
@@ -30,7 +35,6 @@ public class ViewUtil {
 		botao.setBounds(x, y, width, height);
 		botao.setFocusable(false);
 		botao.setBorderPainted(false);
-		
 		return botao;
 	}
 	
@@ -101,11 +105,36 @@ public class ViewUtil {
 	public static void setLightTheme(JFrame frame) {
 		COR_ATUAL_FUNDO = Color.WHITE;
 		COR_ATUAL_LETRAS = Color.BLACK;
+		
 		frame.getContentPane().setBackground(COR_ATUAL_FUNDO);
 		for(Component comp : frame.getContentPane().getComponents()) {
 			if(!(comp instanceof JTextField)) {
 				comp.setForeground(COR_ATUAL_LETRAS);
 			}
+		}
+	}
+	
+	public static boolean enviaEmail(Usuario usuario) {
+		String meuEmail = "alohausuario1@gmail.com";
+		String senha = "@ADMaloha00";
+		
+		SimpleEmail email = new SimpleEmail();
+		email.setHostName("smtp.gmail.com");
+		email.setSmtpPort(465);
+		email.setAuthenticator(new DefaultAuthenticator(meuEmail, senha));
+		email.setSSLOnConnect(true);
+		
+		try {
+			email.setFrom(meuEmail);
+			email.setSubject("Bem vindo ao Aloha!");
+			email.setMsg("Olá, " + usuario.getPrimeiroNome() + "!");
+			email.addTo(usuario.getEmail());
+			email.send();
+			return true;
+			
+			
+		} catch(Exception e) {
+			throw new RuntimeException("Falha ao enviar email. Tem certeza que informou o email correto?"); 
 		}
 	}
 }

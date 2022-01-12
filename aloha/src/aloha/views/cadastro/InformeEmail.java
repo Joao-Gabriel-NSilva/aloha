@@ -12,11 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.SimpleEmail;
-
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
+import aloha.util.TarefaEnviaEmail;
 
 public class InformeEmail {
 
@@ -25,6 +23,8 @@ public class InformeEmail {
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
+	public static boolean EMAIL_ENVIADO = false;
+	public static JLabel labelEnviandoEmail = ViewUtil.criaJLabel(170, 530, 160, 40, "", 20);
 
 	/**
 	 * Launch the application.
@@ -61,6 +61,7 @@ public class InformeEmail {
 	private void initialize() {
 		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
 		frame.setTitle("Informe seu email!");
+		frame.getContentPane().add(labelEnviandoEmail);
 
 		// label informe email
 		JLabel lblInforme = ViewUtil.criaJLabel(127, 52, 228, 62, "Informe seu e-mail!", 30);
@@ -90,20 +91,24 @@ public class InformeEmail {
 				try {
 					USUARIO.setEmail(textFieldEmail.getText());
 					
-					if(enviaEmail(USUARIO)) {
-						JOptionPane.showMessageDialog(null, "Email enviado para " + USUARIO.getEmail(), "Enviado!", 
-								JOptionPane.INFORMATION_MESSAGE);
-					}
-					
-					frame.setVisible(false);
-					
-					if(FRAME_SEGUINTE != null) {
-						FRAME_SEGUINTE.setVisible(true);
+					if(EMAIL_ENVIADO) {
+						frame.setVisible(false);
+						
+						if(FRAME_SEGUINTE != null) {
+							FRAME_SEGUINTE.setVisible(true);
+						} else {
+							new CrieASenha(USUARIO, frame);
+						}
 					} else {
-						new CrieASenha(USUARIO, frame);
+						labelEnviandoEmail.setText("Enviando email...");
+						
+						Runnable tarefa = new TarefaEnviaEmail(USUARIO);
+						Thread thread = new Thread(tarefa, "Thread envia email");
+						thread.start();
 					}
+					
 				} catch (RuntimeException ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -123,29 +128,4 @@ public class InformeEmail {
 		});
 		//
 	}
-	
-	private boolean enviaEmail(Usuario usuario) {
-		String meuEmail = "alohausuario1@gmail.com";
-		String senha = "@ADMaloha00";
-		
-		SimpleEmail email = new SimpleEmail();
-		email.setHostName("smtp.gmail.com");
-		email.setSmtpPort(465);
-		email.setAuthenticator(new DefaultAuthenticator(meuEmail, senha));
-		email.setSSLOnConnect(true);
-		
-		try {
-			email.setFrom(meuEmail);
-			email.setSubject("Bem vindo ao Aloha!");
-			email.setMsg("Olá, " + usuario.getPrimeiroNome() + "!");
-			email.addTo(usuario.getEmail());
-			email.send();
-			return true;
-			
-			
-		} catch(Exception e) {
-			throw new RuntimeException("Falha ao enviar email. Tem certeza que informou o email correto"); 
-		}
-	}
-
 }
