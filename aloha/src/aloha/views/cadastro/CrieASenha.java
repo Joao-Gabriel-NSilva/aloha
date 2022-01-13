@@ -1,5 +1,6 @@
 package aloha.views.cadastro;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ public class CrieASenha {
 
 	private JFrame frame;
 	private JTextField textFieldSenha;
+	private JTextField textFieldConfirmeSenha;
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
@@ -65,20 +67,49 @@ public class CrieASenha {
 		//
 
 		// label 2, 3 e 4
-		JLabel lbl2 = ViewUtil.criaJLabel(16, 123, 460, 41, "Escolha apenas números com pelo menos 8 dígitos. Não", 20);
+		JLabel lbl2 = ViewUtil.criaJLabel(16, 123, 460, 41, "Crie uma senha com pelo menos 8 dígitos. Não", 20);
 		frame.getContentPane().add(lbl2);
 
-		JLabel lbl3 =  ViewUtil.criaJLabel(16, 151, 460, 41, "use números sequenciais (ex: 123 ou 321) "
-				+ "ou repetidos", 20);
+		JLabel lbl3 = ViewUtil.criaJLabel(16, 151, 460, 41,
+				"use números sequenciais (ex: 123 ou 321) ou", 20);
 		frame.getContentPane().add(lbl3);
-		
-		JLabel lbl4 = ViewUtil.criaJLabel(16, 179, 460, 41, "(ex: 111).", 20);
+
+		JLabel lbl4 = ViewUtil.criaJLabel(16, 179, 460, 41, "repetidos (ex: 111).", 20);
 		frame.getContentPane().add(lbl4);
 		//
 
 		// text field senha
-		textFieldSenha = ViewUtil.criaTextField(20, 303, 400, 65, null, 26);
+		textFieldSenha = ViewUtil.criaTextField(20, 303, 400, 65, "Senha", 26);
+		textFieldSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textFieldSenha.setFocusable(true);
+				if (textFieldSenha.getText().equals("Senha")) {
+					textFieldSenha.setText(null);
+				}
+				textFieldSenha.setForeground(Color.BLACK);
+			}
+		});
+		textFieldSenha.setForeground(Color.GRAY);
+		textFieldSenha.setToolTipText("Senha");
+		textFieldSenha.setFocusable(false);
 		frame.getContentPane().add(textFieldSenha);
+
+		textFieldConfirmeSenha = ViewUtil.criaTextField(20, 383, 400, 65, "Confirme a senha", 26);
+		textFieldConfirmeSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textFieldConfirmeSenha.setFocusable(true);
+				if (textFieldConfirmeSenha.getText().equals("Confirme a senha")) {
+					textFieldConfirmeSenha.setText(null);
+				}
+				textFieldConfirmeSenha.setForeground(Color.BLACK);
+			}
+		});
+		textFieldConfirmeSenha.setForeground(Color.GRAY);
+		textFieldConfirmeSenha.setToolTipText("Senha");
+		textFieldConfirmeSenha.setFocusable(false);
+		frame.getContentPane().add(textFieldConfirmeSenha);
 		//
 
 		// botão avançar
@@ -86,14 +117,15 @@ public class CrieASenha {
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					USUARIO.setSenha(textFieldSenha.getText());
-					
-					frame.setVisible(false);
-					if(FRAME_SEGUINTE != null) {
-						FRAME_SEGUINTE.setVisible(true);
-					} else {
-						new ConhecerMelhor(USUARIO, frame);
+					if (USUARIO.setSenha(textFieldSenha.getText(), textFieldConfirmeSenha.getText())) {
+						frame.setVisible(false);
+						if (FRAME_SEGUINTE != null) {
+							FRAME_SEGUINTE.setVisible(true);
+						} else {
+							new ConhecerMelhor(USUARIO, frame);
+						}
 					}
+
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}

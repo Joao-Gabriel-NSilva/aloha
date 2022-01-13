@@ -92,15 +92,22 @@ public class Usuario {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+	public boolean setSenha(String senha, String senhaConfirmacao) {
 		senha = senha.trim();
+		senhaConfirmacao = senhaConfirmacao.trim();
+		
 		if(senha.isEmpty()) {
 			throw new RuntimeException("Crie uma senha!");
 		} else if(senha.length() < 8) {
 			throw new RuntimeException("A senha deve ter pelo menos 8 digitos!");
+		} else if(senhaConfirmacao.isEmpty()) {
+			throw new RuntimeException("Confirme a senha!");
+		} else if (!(senha.equals(senhaConfirmacao))) {
+			throw new RuntimeException("Senha de confirmação incorreta!");
 		}
 		
 		this.senha = senha;
+		return true;
 	}
 	
 	public List<String> getGostos() {

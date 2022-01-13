@@ -13,18 +13,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import aloha.modelo.Usuario;
-import aloha.util.ViewUtil;
 import aloha.util.TarefaEnviaEmail;
+import aloha.util.ViewUtil;
 
 public class InformeEmail {
 
 	private JFrame frame;
 	private JTextField textFieldEmail;
+	private JButton btnAvancar;
 	private static Usuario USUARIO;
 	private static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
 	public static boolean EMAIL_ENVIADO = false;
-	public static JLabel labelEnviandoEmail = ViewUtil.criaJLabel(170, 530, 160, 40, "", 20);
 
 	/**
 	 * Launch the application.
@@ -61,7 +61,6 @@ public class InformeEmail {
 	private void initialize() {
 		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
 		frame.setTitle("Informe seu email!");
-		frame.getContentPane().add(labelEnviandoEmail);
 
 		// label informe email
 		JLabel lblInforme = ViewUtil.criaJLabel(127, 52, 228, 62, "Informe seu e-mail!", 30);
@@ -77,21 +76,25 @@ public class InformeEmail {
 		//
 
 		// text field email
-		textFieldEmail = ViewUtil.criaTextField(20, 273, 400, 65, null, 26);
+		textFieldEmail = ViewUtil.criaTextField(20, 273, 400, 69, null, 26);
 		textFieldEmail.setToolTipText("Seu e-mail");
 		frame.getContentPane().add(textFieldEmail);
 		//
 
 		// botão avançar
-		JButton btnAvancar = ViewUtil.criaBotao(160, 450, 140, 44, "Avançar");
+		btnAvancar = ViewUtil.criaBotao(160, 450, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					USUARIO.setEmail(textFieldEmail.getText());
-					
-					if(EMAIL_ENVIADO) {
+					if(EMAIL_ENVIADO == false) {
+						USUARIO.setEmail(textFieldEmail.getText());
+						
+						Runnable tarefa = new TarefaEnviaEmail(USUARIO);
+						Thread thread = new Thread(tarefa, "Thread envia email");
+						thread.start();
+						
 						frame.setVisible(false);
 						
 						if(FRAME_SEGUINTE != null) {
@@ -100,14 +103,11 @@ public class InformeEmail {
 							new CrieASenha(USUARIO, frame);
 						}
 					} else {
-						labelEnviandoEmail.setText("Enviando email...");
-						
-						Runnable tarefa = new TarefaEnviaEmail(USUARIO);
-						Thread thread = new Thread(tarefa, "Thread envia email");
-						thread.start();
+						FRAME_SEGUINTE.setVisible(true);
 					}
 					
 				} catch (RuntimeException ex) {
+					ex.printStackTrace();
 					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			}
