@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
+import aloha.views.main.ViewInicial;
 import aloha.util.TarefaAtualizaLabel;
 
 public class InformeNome {
@@ -28,6 +29,7 @@ public class InformeNome {
 	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/dark_theme.png"));
 	private Thread thread;
 	public static JFrame FRAME_SEGUINTE;
+	public static JFrame FRAME_ANTERIOR;
 
 	/**
 	 * Launch the application.
@@ -50,6 +52,11 @@ public class InformeNome {
 	 */
 	public InformeNome() {
 		initialize();
+	}
+	
+	public InformeNome(JFrame frameAnterior) {
+		FRAME_ANTERIOR = frameAnterior;
+		main(null);
 	}
 
 	public Thread getThread() {
@@ -118,15 +125,15 @@ public class InformeNome {
 		// label 1
 		lblAloha = ViewUtil.criaJLabel(120, 49, 228, 62, null, 30);
 		frame.getContentPane().add(lblAloha);
-		
+
 		Runnable tarefa = new TarefaAtualizaLabel(lblAloha, textFieldNome);
 		setThread(new Thread(tarefa, "Thread atualizador de label"));
 		thread.start();
 		//
 
 		// label 2
-		JLabel lblInformeSeuNome = ViewUtil.criaJLabel(45, 169, 400, 36,
-				"Informe seu nome verdadeiro. Não utilize o", 25);
+		JLabel lblInformeSeuNome = ViewUtil.criaJLabel(45, 169, 400, 36, "Informe seu nome verdadeiro. Não utilize o",
+				25);
 		frame.getContentPane().add(lblInformeSeuNome);
 
 		JLabel lblInformeSeuNome2 = ViewUtil.criaJLabel(45, 200, 400, 36, "nome de terceiros.", 25);
@@ -144,11 +151,11 @@ public class InformeNome {
 					Usuario novo_usuario = new Usuario();
 					novo_usuario.setPrimeiroNome(textFieldNome.getText());
 					novo_usuario.setSobrenome(textFieldSobrenome.getText());
-					
+
 					frame.setVisible(false);
 					TarefaAtualizaLabel.roda = false;
-					
-					if(FRAME_SEGUINTE != null) {
+
+					if (FRAME_SEGUINTE != null) {
 						FRAME_SEGUINTE.setVisible(true);
 					} else {
 						new InformeTelefone(novo_usuario, a);
@@ -156,6 +163,19 @@ public class InformeNome {
 				} catch (RuntimeException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
+			}
+		});
+		//
+
+		// botão voltar
+		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		frame.getContentPane().add(lblVoltar);
+		lblVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.setVisible(false);
+				FRAME_ANTERIOR.setVisible(true);
+				ViewInicial.FRAME_CADASTRO = frame;
 			}
 		});
 		//
