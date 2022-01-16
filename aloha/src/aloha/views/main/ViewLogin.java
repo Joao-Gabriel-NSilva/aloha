@@ -11,15 +11,15 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+import aloha.modelo.Usuario;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
-import aloha.views.cadastro.InformeTelefone;
-
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
 
 public class ViewLogin {
 
@@ -52,7 +52,7 @@ public class ViewLogin {
 	public ViewLogin() {
 		initialize();
 	}
-	
+
 	public ViewLogin(JFrame frameAnterior) {
 		FRAME_ANTERIOR = frameAnterior;
 		main(null);
@@ -97,7 +97,21 @@ public class ViewLogin {
 		JButton botaoEntrar = ViewUtil.criaBotao(151, 498, 151, 49, "Entrar");
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String senha;
+				if (passwordField.isVisible()) {
+					senha = passwordField.getText().strip();
+				} else {
+					senha = textFieldSenha.getText().strip();
+				}
+				try {
+					Usuario usuario = Usuario.fazLogin(textFieldEmail.getText().strip(), senha);
+					JOptionPane.showMessageDialog(frame, "Login efetuado!");
 
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Falha no Login",
+							JOptionPane.WARNING_MESSAGE);
+					ex.printStackTrace();
+				}
 			}
 		});
 		frame.getContentPane().add(botaoEntrar);

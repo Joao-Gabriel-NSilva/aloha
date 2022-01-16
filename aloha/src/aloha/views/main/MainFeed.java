@@ -1,4 +1,4 @@
-package aloha.views.feed;
+package aloha.views.main;
 
 import java.awt.Color;
 import java.awt.EventQueue;

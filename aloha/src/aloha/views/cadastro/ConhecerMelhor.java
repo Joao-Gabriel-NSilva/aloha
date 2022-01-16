@@ -81,6 +81,11 @@ public class ConhecerMelhor {
 		
 		// botao nao
 		JButton btnAgoraNao = ViewUtil.criaBotao(220, 373, 170, 44, "Agora não");
+		btnAgoraNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Usuario.salvaCadastro(USUARIO);
+			}
+		});
 		btnAgoraNao.setFocusable(false);
 		frame.getContentPane().add(btnAgoraNao);
 		//
