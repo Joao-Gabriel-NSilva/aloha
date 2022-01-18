@@ -22,16 +22,15 @@ import aloha.modelo.Usuario;
 public class ViewUtil {
 
 	public static Border BORDA_ROSA = new LineBorder(new Color(255, 20, 147), 3);
-	public static Border BORDA_AZUL = new LineBorder(Color.BLUE, 3);
 	public static Color COR_ATUAL_FUNDO = Color.WHITE;
-	public static Color COR_ATUAL_LETRAS = Color.BLACK;
+	public static Color COR_ATUAL_LETRAS = Color.WHITE;
 	
 	public static JButton criaBotao(Integer x, Integer y, Integer width, Integer height, String text) {
 		JButton botao = new JButton(text);
 		botao.setOpaque(true);
 		botao.setContentAreaFilled(false);
 		botao.setForeground(COR_ATUAL_LETRAS);
-		botao.setFont(new Font("Arial Narrow", Font.PLAIN, 35));
+		botao.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
 		botao.setBounds(x, y, width, height);
 		botao.setFocusable(false);
 		botao.setBorderPainted(false);
@@ -84,7 +83,7 @@ public class ViewUtil {
 			Integer tamanhoFonte) {
 		JLabel label = new JLabel(text);
 		label.setFont(new Font("Arial Narrow", Font.PLAIN, tamanhoFonte));
-		label.setHorizontalAlignment(SwingConstants.LEFT);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setBounds(x, y, width, height);
 		label.setForeground(COR_ATUAL_LETRAS);
 		
@@ -92,7 +91,7 @@ public class ViewUtil {
 	}
 	
 	public static void setDarkTheme(JFrame frame) {
-		COR_ATUAL_FUNDO = Color.GRAY;
+		COR_ATUAL_FUNDO = Color.DARK_GRAY;
 		COR_ATUAL_LETRAS = Color.WHITE;
 		frame.getContentPane().setBackground(COR_ATUAL_FUNDO);
 		for(Component comp : frame.getContentPane().getComponents()) {

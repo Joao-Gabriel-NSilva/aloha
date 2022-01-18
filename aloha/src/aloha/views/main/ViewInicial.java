@@ -6,9 +6,9 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import aloha.util.OutlineLabel;
@@ -53,24 +53,17 @@ public class ViewInicial {
 		frame.getContentPane().setBackground(new Color(105, 105, 105));
 		frame.getContentPane().setLayout(null);
 		frame.setLocation(700, 100);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // panels
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(105, 105, 105));
-        panel.setBounds(1, 0, 444, 418);
-        frame.getContentPane().add(panel);
-		panel.setLayout(null);
-        //
-		
 		// label aloha
 		OutlineLabel labelAloha = new OutlineLabel("Aloha", JLabel.CENTER, 1);
 		labelAloha.setBounds(113, 280, 217, 127);
 		labelAloha.setHorizontalAlignment(SwingConstants.CENTER);
         labelAloha.setFont(new Font("Brush Script MT", Font.PLAIN, 101));
-        labelAloha.setOutlineColor(new Color(255, 20, 147));
+        //labelAloha.setOutlineColor(new Color(255, 20, 147));
         labelAloha.setForeground(Color.WHITE);
-        panel.add(labelAloha);
+        frame.getContentPane().add(labelAloha);
         //
         
         // label login
@@ -94,7 +87,7 @@ public class ViewInicial {
         		labelLogin.setForeground(Color.WHITE);
         	}
         });
-        labelLogin.setBounds(40, 558, 364, 59);
+        labelLogin.setBounds(40, 563, 364, 59);
         labelLogin.setHorizontalAlignment(SwingConstants.CENTER);
         labelLogin.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
         labelLogin.setForeground(Color.WHITE);
@@ -123,11 +116,17 @@ public class ViewInicial {
         		labelCadastro.setForeground(Color.WHITE);
         	}
         });
-        labelCadastro.setBounds(40, 649, 364, 59);
+        labelCadastro.setBounds(40, 629, 364, 59);
         labelCadastro.setHorizontalAlignment(SwingConstants.CENTER);
         labelCadastro.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
         labelCadastro.setForeground(Color.WHITE);
         frame.getContentPane().add(labelCadastro);
+        
+        JLabel lblBackground = new JLabel("");
+        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/fundo_preto_com_borda_rosa.jpg"));
+        lblBackground.setIcon(imgBackground);
+        lblBackground.setBounds(0, -66, 444, 886);
+        frame.getContentPane().add(lblBackground);
         //
         
         

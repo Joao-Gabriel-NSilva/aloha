@@ -1,16 +1,20 @@
 package aloha.views.cadastro;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
 import aloha.util.TarefaEnviaEmail;
@@ -59,30 +63,68 @@ public class InformeEmail {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = ViewUtil.criaJFrame(100, 100, 460, 840);
+		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 460, 840);
+		frame.setLocation(700, 100);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		//frame = ViewUtil.criaJFrame(100, 100, 460, 840);
 		frame.setTitle("Informe seu email!");
 
 		// label informe email
-		JLabel lblInforme = ViewUtil.criaJLabel(127, 52, 228, 62, "Informe seu e-mail!", 30);
+		JLabel lblInforme = new JLabel("Informe seu e-mail!");
+		lblInforme.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		lblInforme.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInforme.setBounds(113, 52, 228, 62);
+		lblInforme.setForeground(Color.BLACK);
+		//JLabel lblInforme = ViewUtil.criaJLabel(127, 52, 228, 62, "Informe seu e-mail!", 32);
 		frame.getContentPane().add(lblInforme);
 		//
 
-		// label 2 e 3
-		JLabel lbl2 = ViewUtil.criaJLabel(47, 169, 388, 36, "Precisamos do seu email. Vamos usa-lo para enviar", 20);
+		// label 2, 3 e 4
+		JLabel lbl2 = new JLabel("Precisamos do seu email. Vamos usa-lo");
+		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl2.setBounds(9, 169, 435, 36);
+		lbl2.setForeground(Color.BLACK);
+		//JLabel lbl2 = ViewUtil.criaJLabel(47, 169, 388, 36, "Precisamos do seu email. Vamos usa-lo", 25);
 		frame.getContentPane().add(lbl2);
 
-		JLabel lbl3 = ViewUtil.criaJLabel(47, 196, 266, 36, "informações importantes para você.", 20);
+		JLabel lbl3 = new JLabel("para enviar informações importantes");
+		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		lbl3.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl3.setBounds(5, 196, 444, 36);
+		lbl3.setForeground(Color.BLACK);
+		//JLabel lbl3 = ViewUtil.criaJLabel(47, 196, 388, 36, "para enviar informações importantes", 25);
 		frame.getContentPane().add(lbl3);
+		
+		JLabel lbl4 = new JLabel("para você.");
+		lbl4.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		lbl4.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl4.setBounds(9, 223, 435, 36);
+		lbl4.setForeground(Color.BLACK);
+		//JLabel lbl4 = ViewUtil.criaJLabel(47, 223, 266, 36, "para você.", 25);
+		frame.getContentPane().add(lbl4);
 		//
 
 		// text field email
-		textFieldEmail = ViewUtil.criaTextField(20, 273, 400, 69, null, 26);
+		textFieldEmail = ViewUtil.criaTextField(20, 273, 400, 69, null, 25);
 		textFieldEmail.setToolTipText("Seu e-mail");
 		frame.getContentPane().add(textFieldEmail);
 		//
 
 		// botão avançar
-		btnAvancar = ViewUtil.criaBotao(160, 450, 140, 44, "Avançar");
+		btnAvancar = new JButton("Avançar");
+		btnAvancar.setOpaque(true);
+		btnAvancar.setContentAreaFilled(false);
+		btnAvancar.setForeground(Color.BLACK);
+		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		btnAvancar.setBounds(157, 450, 140, 44);
+		btnAvancar.setFocusable(false);
+		btnAvancar.setBorderPainted(false);
+		//btnAvancar = ViewUtil.criaBotao(160, 450, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
 		btnAvancar.addActionListener(new ActionListener() {
@@ -107,7 +149,6 @@ public class InformeEmail {
 					}
 					
 				} catch (RuntimeException ex) {
-					ex.printStackTrace();
 					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			}
@@ -127,5 +168,11 @@ public class InformeEmail {
 			}
 		});
 		//
+		
+//		JLabel lblBackground = new JLabel("");
+//        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/wallpaper_gradient-pink-black-linear.png"));
+//        lblBackground.setIcon(imgBackground);
+//        lblBackground.setBounds(0, 0, 444, 802);
+//        frame.getContentPane().add(lblBackground);
 	}
 }

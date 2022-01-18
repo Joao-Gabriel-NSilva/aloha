@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -252,6 +253,12 @@ public class Gostos {
 			}
 		});
 		//
+		
+		JLabel lblBackground = new JLabel("");
+        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/wallpaper_gradient-pink-black-linear.png"));
+        lblBackground.setIcon(imgBackground);
+        lblBackground.setBounds(0, 0, 444, 802);
+        frame.getContentPane().add(lblBackground);
 
 	}
 }
