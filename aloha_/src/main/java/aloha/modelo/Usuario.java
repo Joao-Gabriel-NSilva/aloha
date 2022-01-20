@@ -11,14 +11,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
 
 	private String nome;
 	private String apelido;
+	@Id
 	private String arrouba;
 	private String telefone;
 	private String email;
 	private String senha;
+	@ElementCollection
 	private List<String> gostos = new ArrayList<>();
 
 	public Usuario() {
@@ -231,6 +238,12 @@ public class Usuario {
 		} else {
 			throw new RuntimeException("Email ou senha incorreto!");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nome=" + nome + ", apelido=" + apelido + ", arrouba=" + arrouba + ", telefone=" + telefone
+				+ ", email=" + email + ", senha=" + senha + ", gostos=" + gostos + "]";
 	}
 
 }

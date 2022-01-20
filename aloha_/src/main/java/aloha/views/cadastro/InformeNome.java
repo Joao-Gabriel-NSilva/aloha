@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,11 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
-import aloha.util.ViewUtil;
-import aloha.views.main.ViewInicial;
-import aloha.views.main.ViewLogin;
 import aloha.util.TarefaAtualizaLabel;
 import aloha.util.TextBubbleBorder;
+import aloha.util.ViewUtil;
+import aloha.views.main.ViewInicial;
 
 public class InformeNome {
 
@@ -30,8 +28,8 @@ public class InformeNome {
 	private JTextField textFieldNome;
 	private JTextField textFieldApelido;
 	private JLabel lblAloha;
-	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/ligth_theme.png"));
-	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/dark_theme.png"));
+	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/icons/ligth_theme.png"));
+	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/icons/dark_theme.png"));
 	private Thread thread;
 	public static JFrame FRAME_SEGUINTE;
 	public static JFrame FRAME_ANTERIOR;

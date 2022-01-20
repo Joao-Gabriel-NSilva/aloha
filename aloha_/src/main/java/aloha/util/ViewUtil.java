@@ -39,7 +39,7 @@ public class ViewUtil {
 	
 	public static JLabel criaLblVoltar(Object classe) {
 		JLabel lbl = new JLabel("");
-		ImageIcon img = new ImageIcon(classe.getClass().getResource("/botao_voltar.png"));
+		ImageIcon img = new ImageIcon(classe.getClass().getResource("/icons/botao_voltar.png"));
 		lbl.setIcon(img);
 		lbl.setBounds(5, 0, 37, 41);
 		
