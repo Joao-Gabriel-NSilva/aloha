@@ -174,6 +174,20 @@ public class InformeTelefone {
 				}
 			}
 		});
+		btnEnviar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		btnEnviar.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			btnEnviar.setForeground(Color.BLACK);
+        		} else {
+        			btnEnviar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
 		//
 
 		// botão voltar

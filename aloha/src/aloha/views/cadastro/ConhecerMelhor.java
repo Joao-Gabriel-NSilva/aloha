@@ -78,16 +78,16 @@ public class ConhecerMelhor {
 		//
 		
 		// botao sim
-		JButton btnSim = new JButton("Sim");
-		btnSim.setOpaque(true);
-		btnSim.setContentAreaFilled(false);
-		btnSim.setForeground(Color.BLACK);
-		btnSim.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnSim.setBounds(295, 455, 90, 44);
-		btnSim.setFocusable(false);
-		btnSim.setBorderPainted(false);
+		JButton btnAvancar = new JButton("Sim");
+		btnAvancar.setOpaque(true);
+		btnAvancar.setContentAreaFilled(false);
+		btnAvancar.setForeground(Color.BLACK);
+		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		btnAvancar.setBounds(295, 455, 90, 44);
+		btnAvancar.setFocusable(false);
+		btnAvancar.setBorderPainted(false);
 		//JButton btnSim = ViewUtil.criaBotao(60, 373, 90, 44, "Sim");
-		btnSim.addActionListener(new ActionListener() {
+		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				if(FRAME_SEGUINTE != null) {
@@ -97,8 +97,22 @@ public class ConhecerMelhor {
 				}
 			}
 		});
-		btnSim.setFocusable(false);
-		frame.getContentPane().add(btnSim);
+		btnAvancar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		btnAvancar.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			btnAvancar.setForeground(Color.BLACK);
+        		} else {
+        			btnAvancar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
+		btnAvancar.setFocusable(false);
+		frame.getContentPane().add(btnAvancar);
 		//
 		
 		// botao nao
@@ -107,7 +121,7 @@ public class ConhecerMelhor {
 		btnAgoraNao.setContentAreaFilled(false);
 		btnAgoraNao.setForeground(Color.BLACK);
 		btnAgoraNao.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnAgoraNao.setBounds(69, 455, 157, 44);
+		btnAgoraNao.setBounds(69, 455, 165, 44);
 		btnAgoraNao.setFocusable(false);
 		btnAgoraNao.setBorderPainted(false);
 
@@ -117,6 +131,20 @@ public class ConhecerMelhor {
 				Usuario.salvaCadastro(USUARIO);
 			}
 		});
+		btnAgoraNao.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		btnAgoraNao.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			btnAvancar.setForeground(Color.BLACK);
+        		} else {
+        			btnAvancar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
 		btnAgoraNao.setFocusable(false);
 		frame.getContentPane().add(btnAgoraNao);
 		//

@@ -182,6 +182,20 @@ public class CrieASenha {
 				}
 			}
 		});
+		btnAvancar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		btnAvancar.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			btnAvancar.setForeground(Color.BLACK);
+        		} else {
+        			btnAvancar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
 		frame.getContentPane().add(btnAvancar);
 		//
 

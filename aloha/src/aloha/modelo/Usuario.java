@@ -13,8 +13,9 @@ import java.util.Scanner;
 
 public class Usuario {
 
-	private String primeiroNome;
-	private String sobrenome;
+	private String nome;
+	private String apelido;
+	private String arrouba;
 	private String telefone;
 	private String email;
 	private String senha;
@@ -24,12 +25,14 @@ public class Usuario {
 
 	}
 
-	public Usuario(String primeiroNome, String sobrenome, String telefone, String email, String senha, String gostos) {
-		this.primeiroNome = primeiroNome;
-		this.sobrenome = sobrenome;
+	public Usuario(String nome, String telefone, String email, String senha, String gostos, String apelido,
+			String arrouba) {
+		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.senha = senha;
+		this.apelido = apelido;
+		this.arrouba = arrouba;
 
 		if (!gostos.isEmpty()) {
 			for (String a : gostos.split(",")) {
@@ -38,38 +41,21 @@ public class Usuario {
 		}
 	}
 
-	public String getPrimeiroNome() {
-		return primeiroNome;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setPrimeiroNome(String primeiroNome) {
-		primeiroNome = primeiroNome.trim();
+	public void setNome(String nome) {
+		nome = nome.trim();
 
-		if (primeiroNome.equals("Primeiro nome") | primeiroNome.isEmpty()) {
+		if (nome.equals("Primeiro nome") | nome.isEmpty()) {
 			throw new RuntimeException("Informe seu nome!");
 		}
 
-		verificaNumeroNoNome(primeiroNome);
-		verificaCaracterEspecial(primeiroNome);
+		verificaNumeroNoNome(nome);
+		verificaCaracterEspecial(nome);
 
-		this.primeiroNome = primeiroNome;
-	}
-
-	public String getSobrenome() {
-		return sobrenome;
-	}
-
-	public void setSobrenome(String sobrenome) {
-		sobrenome = sobrenome.trim();
-
-		if (sobrenome.equals("Sobrenome") | sobrenome.isEmpty()) {
-			throw new RuntimeException("Informe seu sobrenome!");
-		}
-
-		verificaNumeroNoNome(sobrenome);
-		verificaCaracterEspecial(sobrenome);
-
-		this.sobrenome = sobrenome;
+		this.nome = nome;
 	}
 
 	public String getTelefone() {
@@ -140,11 +126,40 @@ public class Usuario {
 		return gostos;
 	}
 
+	public String getApelido() {
+		return apelido;
+	}
+
+	public void setApelido(String apelido) {
+		apelido = apelido.trim();
+
+		if (apelido.equals("Apelido") | apelido.isEmpty()) {
+			throw new RuntimeException("Informe seu apelido!");
+		}
+
+		verificaNumeroNoNome(apelido);
+		verificaCaracterEspecial(apelido);
+
+		this.apelido = apelido;
+	}
+
+	public String getArrouba() {
+		return arrouba;
+	}
+
+	public void setArrouba(String arrouba) {
+		if (arrouba.equals("@") | arrouba.isEmpty()) {
+			throw new RuntimeException("Informe seu nome de usuário!");
+		}
+
+		this.arrouba = (arrouba.startsWith("@") ? arrouba : "@" + arrouba);
+	}
+
 	private void verificaNumeroNoNome(String string) {
 		for (String i : string.split("")) {
 			try {
 				Integer.parseInt(i);
-				throw new RuntimeException("Não coloque números no nome!");
+				throw new RuntimeException("Não coloque números!");
 			} catch (NumberFormatException ex) {
 			}
 		}
@@ -176,15 +191,15 @@ public class Usuario {
 
 		try (FileWriter writer = new FileWriter("dados/cadastros.csv", true)) {
 			try (PrintWriter saida = new PrintWriter(writer, true)) {
-				saida.println(usuario.getEmail() + ";" + usuario.getSenha() + ";" + usuario.getPrimeiroNome() + ";"
-						+ usuario.getSobrenome() + ";" + usuario.getTelefone() + ";" + gostos);
+				saida.println(usuario.getArrouba() + ";" + usuario.getSenha() + ";" + usuario.getEmail() + ";"
+						+ usuario.getApelido() + ";" + usuario.getNome() + ";" + usuario.getTelefone() + ";" + gostos);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static Usuario fazLogin(String email, String senha) throws FileNotFoundException {
+	public static Usuario fazLogin(String arrouba, String senha) throws FileNotFoundException {
 		Map<String, String> listaLogins = new HashMap<>();
 		Map<String, Usuario> usuarios = new HashMap<>();
 
@@ -195,23 +210,24 @@ public class Usuario {
 			Scanner linhaScanner = new Scanner(linha);
 			linhaScanner.useDelimiter(";");
 
-			String emailCadastro = linhaScanner.next();
-			String senhaCadastro = linhaScanner.next();
+			String arroubaCadastrado = linhaScanner.next();
+			String senhaCadastrado = linhaScanner.next();
+			String emailCadastrado = linhaScanner.next();
+			String apelidoCadastrado = linhaScanner.next();
 			String nomeCadastro = linhaScanner.next();
-			String sobrenomeCadastro = linhaScanner.next();
 			String telefoneCadastro = linhaScanner.next();
 			String gostosCadastro = linhaScanner.next();
 
-			listaLogins.put(emailCadastro, senhaCadastro);
-			usuarios.put(emailCadastro, new Usuario(nomeCadastro, sobrenomeCadastro, telefoneCadastro, emailCadastro,
-					senhaCadastro, gostosCadastro));
+			listaLogins.put(arroubaCadastrado, senhaCadastrado);
+			usuarios.put(arroubaCadastrado, new Usuario(nomeCadastro, telefoneCadastro, emailCadastrado,
+					senhaCadastrado, gostosCadastro, apelidoCadastrado, arroubaCadastrado));
 			linhaScanner.close();
 
 		}
 		scanner.close();
 
-		if (listaLogins.containsKey(email) & listaLogins.get(email).equals(senha)) {
-			return usuarios.get(email);
+		if (listaLogins.containsKey(arrouba) & listaLogins.get(arrouba).equals(senha)) {
+			return usuarios.get(arrouba);
 		} else {
 			throw new RuntimeException("Email ou senha incorreto!");
 		}

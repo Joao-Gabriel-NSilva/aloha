@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.SwingConstants;
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
 import aloha.views.main.ViewInicial;
+import aloha.views.main.ViewLogin;
 import aloha.util.TarefaAtualizaLabel;
 import aloha.util.TextBubbleBorder;
 
@@ -26,13 +28,14 @@ public class InformeNome {
 
 	private JFrame frame;
 	private JTextField textFieldNome;
-	private JTextField textFieldSobrenome;
+	private JTextField textFieldApelido;
 	private JLabel lblAloha;
 	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/ligth_theme.png"));
 	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/dark_theme.png"));
 	private Thread thread;
 	public static JFrame FRAME_SEGUINTE;
 	public static JFrame FRAME_ANTERIOR;
+	private JTextField textFieldArrouba;
 
 	/**
 	 * Launch the application.
@@ -97,10 +100,9 @@ public class InformeNome {
 		frame.setTitle("Bem vindo!");
 
 		// text fied nome
-		textFieldNome = new JTextField();
+		textFieldNome = new JTextField("Nome e sobrenome");
 		textFieldNome.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		textFieldNome.setText("Primeiro nome");
-		textFieldNome.setBounds(27, 312, 400, 65);
+		textFieldNome.setBounds(27, 400, 400, 70);
 		textFieldNome.setColumns(10);
 		textFieldNome.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		//textFieldNome = ViewUtil.criaTextField(20, 312, 400, 65, "Primeiro nome", 25);
@@ -108,7 +110,7 @@ public class InformeNome {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				textFieldNome.setFocusable(true);
-				if (textFieldNome.getText().equals("Primeiro nome")) {
+				if (textFieldNome.getText().equals("Nome e sobrenome")) {
 					textFieldNome.setText(null);
 				}
 				textFieldNome.setForeground(Color.BLACK);
@@ -121,30 +123,51 @@ public class InformeNome {
 		//
 
 		// text field sobrenome
-		textFieldSobrenome = new JTextField();
-		textFieldSobrenome.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		textFieldSobrenome.setText("Sobrenome");
-		textFieldSobrenome.setBounds(27, 403, 400, 65);
-		textFieldSobrenome.setColumns(10);
-		textFieldSobrenome.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
+		textFieldApelido = new JTextField("Apelido");
+		textFieldApelido.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		textFieldApelido.setBounds(27, 230, 400, 70);
+		textFieldApelido.setColumns(10);
+		textFieldApelido.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		//textFieldSobrenome = ViewUtil.criaTextField(20, 403, 400, 65, "Sobrenome", 25);
-		textFieldSobrenome.addMouseListener(new MouseAdapter() {
+		textFieldApelido.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textFieldSobrenome.setFocusable(true);
-				if (textFieldSobrenome.getText().equals("Sobrenome")) {
-					textFieldSobrenome.setText(null);
+				textFieldApelido.setFocusable(true);
+				if (textFieldApelido.getText().equals("Apelido")) {
+					textFieldApelido.setText(null);
 				}
-				textFieldSobrenome.setForeground(Color.BLACK);
+				textFieldApelido.setForeground(Color.BLACK);
 			}
 		});
-		textFieldSobrenome.setForeground(Color.GRAY);
-		textFieldSobrenome.setToolTipText("Sobrenome");
-		textFieldSobrenome.setFocusable(false);
-		frame.getContentPane().add(textFieldSobrenome);
+		textFieldApelido.setForeground(Color.GRAY);
+		textFieldApelido.setToolTipText("Apelido");
+		textFieldApelido.setFocusable(false);
+		frame.getContentPane().add(textFieldApelido);
+		//
+		
+		//text field @
+		textFieldArrouba = new JTextField();
+		textFieldArrouba.setText("@");
+		textFieldArrouba.setForeground(Color.GRAY);
+		textFieldArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		textFieldArrouba.setFocusable(false);
+		textFieldArrouba.setColumns(10);
+		textFieldArrouba.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
+		textFieldArrouba.setBounds(27, 550, 400, 70);
+		textFieldArrouba.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textFieldArrouba.setFocusable(true);
+				if (textFieldArrouba.getText().equals("@")) {
+					textFieldArrouba.setText(null);
+				}
+				textFieldArrouba.setForeground(Color.BLACK);
+			}
+		});
+		frame.getContentPane().add(textFieldArrouba);
 		//
 
-		// label 1
+		// label aloha
 		lblAloha = new JLabel("Aloha, novo usuário!");
 		lblAloha.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
 		lblAloha.setForeground(Color.BLACK);
@@ -153,18 +176,18 @@ public class InformeNome {
 		//lblAloha = ViewUtil.criaJLabel(120, 49, 300, 62, null, 32);
 		frame.getContentPane().add(lblAloha);
 
-		Runnable tarefa = new TarefaAtualizaLabel(lblAloha, textFieldNome);
+		Runnable tarefa = new TarefaAtualizaLabel(lblAloha, textFieldApelido);
 		setThread(new Thread(tarefa, "Thread atualizador de label"));
 		thread.start();
 		//
 
-		// label 2
+		// label nome
 		JLabel lblInformeSeuNome = new JLabel("Informe seu nome verdadeiro. Não utilize");
 		lblInformeSeuNome.setBackground(Color.BLACK);
 		lblInformeSeuNome.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		lblInformeSeuNome.setForeground(Color.BLACK);
 		lblInformeSeuNome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInformeSeuNome.setBounds(9, 169, 435, 36);
+		lblInformeSeuNome.setBounds(9, 319, 435, 36);
 		//JLabel lblInformeSeuNome = ViewUtil.criaJLabel(45, 169, 400, 36, "Informe seu nome verdadeiro. Não utilize o",
 		//		25);
 		frame.getContentPane().add(lblInformeSeuNome);
@@ -173,9 +196,29 @@ public class InformeNome {
 		lblInformeSeuNome2.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		lblInformeSeuNome2.setForeground(Color.BLACK);
 		lblInformeSeuNome2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInformeSeuNome2.setBounds(9, 200, 435, 36);
+		lblInformeSeuNome2.setBounds(9, 350, 435, 36);
 		//JLabel lblInformeSeuNome2 = ViewUtil.criaJLabel(45, 200, 400, 36, "nome de terceiros.", 25);
 		frame.getContentPane().add(lblInformeSeuNome2);
+		//
+		
+		//lbl como ser chamado
+		JLabel lblComoSerChamado = new JLabel("Como gostaria de ser chamado?");
+		lblComoSerChamado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblComoSerChamado.setForeground(Color.BLACK);
+		lblComoSerChamado.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		lblComoSerChamado.setBackground(Color.BLACK);
+		lblComoSerChamado.setBounds(9, 180, 435, 36);
+		frame.getContentPane().add(lblComoSerChamado);
+		//
+		
+		//lbl escolha seu @
+		JLabel lblArrouba = new JLabel("Escolha seu @");
+		lblArrouba.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArrouba.setForeground(Color.BLACK);
+		lblArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		lblArrouba.setBackground(Color.BLACK);
+		lblArrouba.setBounds(9, 500, 435, 36);
+		frame.getContentPane().add(lblArrouba);
 		//
 
 		// botão avançar
@@ -184,7 +227,7 @@ public class InformeNome {
 		btnAvancar.setContentAreaFilled(false);
 		btnAvancar.setForeground(Color.BLACK);
 		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnAvancar.setBounds(157, 550, 140, 44);
+		btnAvancar.setBounds(157, 678, 140, 44);
 		btnAvancar.setFocusable(false);
 		btnAvancar.setBorderPainted(false);
 		//JButton btnAvancar = ViewUtil.criaBotao(160, 550, 140, 44, "Avançar");
@@ -195,8 +238,10 @@ public class InformeNome {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Usuario novo_usuario = new Usuario();
-					novo_usuario.setPrimeiroNome(textFieldNome.getText());
-					novo_usuario.setSobrenome(textFieldSobrenome.getText());
+					novo_usuario.setNome(textFieldNome.getText());
+					novo_usuario.setApelido(textFieldApelido.getText());
+					novo_usuario.setArrouba(textFieldArrouba.getText());
+					
 
 					frame.setVisible(false);
 					TarefaAtualizaLabel.roda = false;
@@ -211,6 +256,20 @@ public class InformeNome {
 				}
 			}
 		});
+		btnAvancar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		btnAvancar.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			btnAvancar.setForeground(Color.BLACK);
+        		} else {
+        			btnAvancar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
 		//
 
 		// botão voltar
@@ -242,6 +301,8 @@ public class InformeNome {
 		});
 		lblTema.setIcon(sol);
 		frame.getContentPane().add(lblTema);
+		
+		
 		//
 		
 //		JLabel lblBackground = new JLabel("");

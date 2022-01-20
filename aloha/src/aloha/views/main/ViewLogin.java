@@ -24,7 +24,7 @@ import aloha.util.ViewUtil;
 public class ViewLogin {
 
 	private JFrame frame;
-	private JTextField textFieldEmail;
+	private JTextField textFieldArrouba;
 	private JTextField textFieldSenha;
 	private JPasswordField passwordField;
 	public static JFrame FRAME_ANTERIOR;
@@ -63,9 +63,8 @@ public class ViewLogin {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(255, 255, 255));
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setTitle("LOGIN");
-		frame.getContentPane().setFont(new Font("Arial Narrow", Font.PLAIN, 11));
 		frame.setBounds(100, 100, 460, 840);
 		frame.setLocation(700, 100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,38 +72,63 @@ public class ViewLogin {
 		frame.getContentPane().setLayout(null);
 
 		// text fied email
-		textFieldEmail = ViewUtil.criaTextField(20, 312, 400, 65, "", 26);
-		textFieldEmail.setToolTipText("Email cadastrado");
-		frame.getContentPane().add(textFieldEmail);
+		textFieldArrouba = ViewUtil.criaTextField(20, 262, 400, 70, "@", 25);
+		textFieldArrouba.setForeground(Color.GRAY);
+		textFieldArrouba.setFocusable(false);
+		textFieldArrouba.setToolTipText("Nome de usuário cadastrado");
+		textFieldArrouba.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textFieldArrouba.setFocusable(true);
+				if (textFieldArrouba.getText().equals("@")) {
+					textFieldArrouba.setText(null);
+				}
+				textFieldArrouba.setForeground(Color.BLACK);
+			}
+		});
+		frame.getContentPane().add(textFieldArrouba);
 		//
 
 		// text fied senha
-		textFieldSenha = ViewUtil.criaTextField(20, 403, 400, 65, "", 26);
-		textFieldSenha.setVisible(false);
+		textFieldSenha = ViewUtil.criaTextField(20, 353, 400, 70, "Senha", 25);
+		textFieldSenha.setForeground(Color.GRAY);
+		textFieldSenha.setFocusable(false);
 		textFieldSenha.setToolTipText("Senha");
+		textFieldSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textFieldSenha.setVisible(false);
+				textFieldSenha.setText(null);
+				textFieldSenha.setForeground(Color.BLACK);
+				passwordField.setVisible(true);
+			}
+		});
 		frame.getContentPane().add(textFieldSenha);
 		//
 
 		// password field
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Arial Narrow", Font.PLAIN, 26));
-		passwordField.setBounds(20, 403, 400, 65);
+		passwordField.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
+		passwordField.setVisible(false);
+		passwordField.setBounds(20, 353, 400, 70);
 		passwordField.setBorder(new TextBubbleBorder(Color.BLACK, 1, 20, 0));
 		frame.getContentPane().add(passwordField);
 		//
 
 		// botão entrar
-		JButton botaoEntrar = ViewUtil.criaBotao(151, 498, 151, 49, "Entrar");
+		JButton botaoEntrar = ViewUtil.criaBotao(157, 530, 140, 44, "Entrar");
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String senha;
-				if (passwordField.isVisible()) {
-					senha = passwordField.getText().strip();
-				} else {
-					senha = textFieldSenha.getText().strip();
-				}
+				String arrouba;
+				
+				senha = (passwordField.isVisible() ? ((JTextField) passwordField).getText().strip()
+						: textFieldSenha.getText().strip());
+				arrouba = (textFieldArrouba.getText().startsWith("@") ? textFieldArrouba.getText().strip()
+						: "@" + textFieldArrouba.getText().strip());
+
 				try {
-					Usuario usuario = Usuario.fazLogin(textFieldEmail.getText().strip(), senha);
+					Usuario usuario = Usuario.fazLogin(arrouba, senha);
 					JOptionPane.showMessageDialog(frame, "Login efetuado!");
 
 				} catch (Exception ex) {
@@ -114,6 +138,20 @@ public class ViewLogin {
 				}
 			}
 		});
+		botaoEntrar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		botaoEntrar.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			botaoEntrar.setForeground(Color.BLACK);
+        		} else {
+        			botaoEntrar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
 		frame.getContentPane().add(botaoEntrar);
 		//
 
@@ -138,7 +176,7 @@ public class ViewLogin {
 				if (chckbxMostrarSenha.isSelected()) {
 					passwordField.setVisible(false);
 					textFieldSenha.setVisible(true);
-					textFieldSenha.setText(passwordField.getText());
+					textFieldSenha.setText(((JTextField) passwordField).getText());
 				} else {
 					textFieldSenha.setVisible(false);
 					passwordField.setVisible(true);
@@ -146,13 +184,13 @@ public class ViewLogin {
 				}
 			}
 		});
-		chckbxMostrarSenha.setBounds(21, 484, 111, 23);
+		chckbxMostrarSenha.setBounds(21, 434, 111, 23);
 		frame.getContentPane().add(chckbxMostrarSenha);
 		//
 
 		// label bem vindo
 		JLabel lblNewLabel = new JLabel("Bem vindo!");
-		lblNewLabel.setFont(new Font("Arial Narrow", Font.PLAIN, 40));
+		lblNewLabel.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(64, 83, 325, 88);
 		frame.getContentPane().add(lblNewLabel);

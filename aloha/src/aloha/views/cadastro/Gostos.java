@@ -237,6 +237,20 @@ public class Gostos {
 				System.out.println(USUARIO.getGostos());
 			}
 		});
+		btnAvancar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		btnAvancar.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			btnAvancar.setForeground(Color.BLACK);
+        		} else {
+        			btnAvancar.setForeground(Color.WHITE);
+        		}
+        	}
+        });
 		frame.getContentPane().add(btnAvancar);
 		//
 
@@ -254,11 +268,5 @@ public class Gostos {
 		});
 		//
 		
-		JLabel lblBackground = new JLabel("");
-        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/wallpaper_gradient-pink-black-linear.png"));
-        lblBackground.setIcon(imgBackground);
-        lblBackground.setBounds(0, 0, 444, 802);
-        frame.getContentPane().add(lblBackground);
-
 	}
 }

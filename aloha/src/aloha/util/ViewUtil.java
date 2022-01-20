@@ -23,7 +23,7 @@ public class ViewUtil {
 
 	public static Border BORDA_ROSA = new LineBorder(new Color(255, 20, 147), 3);
 	public static Color COR_ATUAL_FUNDO = Color.WHITE;
-	public static Color COR_ATUAL_LETRAS = Color.WHITE;
+	public static Color COR_ATUAL_LETRAS = Color.BLACK;
 	
 	public static JButton criaBotao(Integer x, Integer y, Integer width, Integer height, String text) {
 		JButton botao = new JButton(text);
@@ -126,7 +126,7 @@ public class ViewUtil {
 		try {
 			email.setFrom(meuEmail);
 			email.setSubject("Bem vindo ao Aloha!");
-			email.setMsg("Olá, " + usuario.getPrimeiroNome() + "!");
+			email.setMsg("Olá, " + usuario.getApelido() + "!");
 			email.addTo(usuario.getEmail());
 			email.send();
 			return true;
