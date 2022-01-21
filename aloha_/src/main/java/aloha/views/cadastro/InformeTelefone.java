@@ -29,7 +29,7 @@ public class InformeTelefone {
 	private JTextField textFieldTelefone;
 	private JComboBox<String> comboBoxDDD;
 	private static Usuario USUARIO;
-	private static InformeNome FRAME_ANTERIOR;
+	private static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
 
 	/**
@@ -55,7 +55,7 @@ public class InformeTelefone {
 		initialize();
 	}
 
-	public InformeTelefone(Usuario novo_usuario, InformeNome frameAnterior) {
+	public InformeTelefone(Usuario novo_usuario, JFrame frameAnterior) {
 		USUARIO = novo_usuario;
 		FRAME_ANTERIOR = frameAnterior;
 		main(null);
@@ -196,15 +196,9 @@ public class InformeTelefone {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				InformeNome.FRAME_SEGUINTE = frame;
+				InformeApelido.FRAME_SEGUINTE = frame;
 				frame.setVisible(false);
-
-				Runnable tarefa = new TarefaAtualizaLabel(FRAME_ANTERIOR.getLblAloha(),
-						FRAME_ANTERIOR.getTextFieldNome());
-				TarefaAtualizaLabel.roda = true;
-				FRAME_ANTERIOR.setThread(new Thread(tarefa, "Thread atualizador de label"));
-				FRAME_ANTERIOR.getThread().start();
-				FRAME_ANTERIOR.getFrame().setVisible(true);
+				FRAME_ANTERIOR.setVisible(true);
 			}
 		});
 		//

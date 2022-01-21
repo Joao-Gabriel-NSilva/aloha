@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import aloha.util.OutlineLabel;
-import aloha.views.cadastro.InformeNome;
+import aloha.views.cadastro.InformeApelido;
 
 public class ViewInicial {
 
@@ -101,7 +101,7 @@ public class ViewInicial {
         	public void mouseClicked(MouseEvent e) {
         		frame.setVisible(false);
         		if(FRAME_CADASTRO == null) {
-        			new InformeNome(frame);
+        			new InformeApelido(frame);
         		} else {
         			FRAME_CADASTRO.setVisible(true);
         		}
@@ -123,7 +123,7 @@ public class ViewInicial {
         frame.getContentPane().add(labelCadastro);
         
         JLabel lblBackground = new JLabel("");
-        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/fundo_preto_com_borda_rosa.jpg"));
+        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/icons/fundo_preto_com_borda_rosa.jpg"));
         lblBackground.setIcon(imgBackground);
         lblBackground.setBounds(0, -66, 444, 886);
         frame.getContentPane().add(lblBackground);

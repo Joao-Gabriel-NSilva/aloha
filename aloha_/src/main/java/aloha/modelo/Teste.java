@@ -1,6 +1,9 @@
 package aloha.modelo;
 
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,9 +15,13 @@ public class Teste {
 
 //		Usuario usuario = new Usuario();
 //		
-//		usuario.setNome("João Gabriel Nascimento");
+//		String dataFormatada = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+//		DateFormat df = DateFormat.getInstance();
+//		
 //		usuario.setApelido("Jaum");
 //		usuario.setArrouba("@jgabriel10x");
+//		usuario.setNome("João Gabriel Nascimento");
+//		usuario.setDataDeNascimento(new Date());
 //		usuario.setEmail("jgabriel10x@gmail.com");
 //		usuario.setTelefone("11123456789");
 //		usuario.setSenha("12345678", "12345678");
@@ -29,14 +36,12 @@ public class Teste {
 		EntityManager em = emf.createEntityManager();
 		
 		Usuario a = em.find(Usuario.class, "@jgabriel10x");
-		em.getTransaction().begin();
-		em.remove(a);
-		em.getTransaction().commit();
+		System.out.println(a);
 		
 //		em.getTransaction().begin();
 //		em.persist(usuario);
 //		em.getTransaction().commit();
-		System.out.println("Pronto");
+//		System.out.println("Pronto");
 		em.close();
 		emf.close();
 	}

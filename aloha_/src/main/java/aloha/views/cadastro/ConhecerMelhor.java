@@ -67,23 +67,37 @@ public class ConhecerMelhor {
 		//frame = ViewUtil.criaJFrame(100, 100, 460, 840);
 		frame.setTitle("Vamos nos conhecer melhor?");
 
-		// lbl 1
-		JLabel lbl1 = new JLabel("Vamos nos conhecer melhor?");
+		// lbl 1, 2 e 3
+		JLabel lbl1 = new JLabel("Para o melhor de sua experiência,");
 		lbl1.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
 		lbl1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl1.setBounds(10, 142, 434, 62);
+		lbl1.setBounds(10, 102, 434, 62);
 		lbl1.setForeground(Color.BLACK);
 		//JLabel lbl1 = ViewUtil.criaJLabel(50, 195, 418, 62, "Vamos nos conhecer melhor?", 30);
 		frame.getContentPane().add(lbl1);
+		
+		JLabel lbl2 = new JLabel("precisamos conhecer");
+		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl2.setForeground(Color.BLACK);
+		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		lbl2.setBounds(10, 158, 434, 62);
+		frame.getContentPane().add(lbl2);
+		
+		JLabel lbl3 = new JLabel("seus gostos.");
+		lbl3.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl3.setForeground(Color.BLACK);
+		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		lbl3.setBounds(10, 216, 434, 62);
+		frame.getContentPane().add(lbl3);
 		//
 		
 		// botao sim
-		JButton btnAvancar = new JButton("Sim");
+		JButton btnAvancar = new JButton("Avançar");
 		btnAvancar.setOpaque(true);
 		btnAvancar.setContentAreaFilled(false);
 		btnAvancar.setForeground(Color.BLACK);
 		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnAvancar.setBounds(295, 455, 90, 44);
+		btnAvancar.setBounds(149, 571, 155, 44);
 		btnAvancar.setFocusable(false);
 		btnAvancar.setBorderPainted(false);
 		//JButton btnSim = ViewUtil.criaBotao(60, 373, 90, 44, "Sim");
@@ -115,44 +129,44 @@ public class ConhecerMelhor {
 		frame.getContentPane().add(btnAvancar);
 		//
 		
-		// botao nao
-		JButton btnAgoraNao = new JButton("Agora não");
-		btnAgoraNao.setOpaque(true);
-		btnAgoraNao.setContentAreaFilled(false);
-		btnAgoraNao.setForeground(Color.BLACK);
-		btnAgoraNao.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnAgoraNao.setBounds(69, 455, 165, 44);
-		btnAgoraNao.setFocusable(false);
-		btnAgoraNao.setBorderPainted(false);
+		// botao pq disso
+		JButton btnPQDisso = new JButton("Por que disso?");
+		btnPQDisso.setOpaque(true);
+		btnPQDisso.setContentAreaFilled(false);
+		btnPQDisso.setForeground(Color.BLACK);
+		btnPQDisso.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		btnPQDisso.setBounds(111, 644, 232, 44);
+		btnPQDisso.setFocusable(false);
+		btnPQDisso.setBorderPainted(false);
 
-		//JButton btnAgoraNao = ViewUtil.criaBotao(220, 373, 170, 44, "Agora não");
-		btnAgoraNao.addActionListener(new ActionListener() {
+		//JButton btnPQDisso = ViewUtil.criaBotao(220, 373, 170, 44, "Agora não");
+		btnPQDisso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario.salvaCadastro(USUARIO);
+				
 			}
 		});
-		btnAgoraNao.addMouseListener(new MouseAdapter() {
+		btnPQDisso.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseEntered(MouseEvent e) {
-        		btnAgoraNao.setForeground(Color.BLUE);
+        		btnPQDisso.setForeground(Color.BLUE);
         	}
         	@Override
         	public void mouseExited(MouseEvent e) {
         		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
-        			btnAvancar.setForeground(Color.BLACK);
+        			btnPQDisso.setForeground(Color.BLACK);
         		} else {
-        			btnAvancar.setForeground(Color.WHITE);
+        			btnPQDisso.setForeground(Color.WHITE);
         		}
         	}
         });
-		btnAgoraNao.setFocusable(false);
-		frame.getContentPane().add(btnAgoraNao);
+		btnPQDisso.setFocusable(false);
+		frame.getContentPane().add(btnPQDisso);
 		//
 
 		// botão voltar
 		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
 		frame.getContentPane().add(lblVoltar);
-
+		
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

@@ -22,18 +22,17 @@ import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
 import aloha.views.main.ViewInicial;
 
-public class InformeNome {
+public class InformeApelido {
 
 	private JFrame frame;
-	private JTextField textFieldNome;
+	public static JFrame FRAME_SEGUINTE;
+	public static JFrame FRAME_ANTERIOR;
 	private JTextField textFieldApelido;
+	private JTextField textFieldArrouba;
 	private JLabel lblAloha;
 	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/icons/ligth_theme.png"));
 	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/icons/dark_theme.png"));
 	private Thread thread;
-	public static JFrame FRAME_SEGUINTE;
-	public static JFrame FRAME_ANTERIOR;
-	private JTextField textFieldArrouba;
 
 	/**
 	 * Launch the application.
@@ -42,7 +41,7 @@ public class InformeNome {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InformeNome window = new InformeNome();
+					InformeApelido window = new InformeApelido();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,11 +53,11 @@ public class InformeNome {
 	/**
 	 * Create the application.
 	 */
-	public InformeNome() {
+	public InformeApelido() {
 		initialize();
 	}
 	
-	public InformeNome(JFrame frameAnterior) {
+	public InformeApelido(JFrame frameAnterior) {
 		FRAME_ANTERIOR = frameAnterior;
 		main(null);
 	}
@@ -74,9 +73,9 @@ public class InformeNome {
 	public JFrame getFrame() {
 		return frame;
 	}
-
-	public JTextField getTextFieldNome() {
-		return textFieldNome;
+	
+	public JTextField getTextFieldApelido() {
+		return textFieldApelido;
 	}
 
 	public JLabel getLblAloha() {
@@ -97,30 +96,7 @@ public class InformeNome {
 		//frame = ViewUtil.criaJFrame(100, 100, 460, 840);
 		frame.setTitle("Bem vindo!");
 
-		// text fied nome
-		textFieldNome = new JTextField("Nome e sobrenome");
-		textFieldNome.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		textFieldNome.setBounds(27, 400, 400, 70);
-		textFieldNome.setColumns(10);
-		textFieldNome.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
-		//textFieldNome = ViewUtil.criaTextField(20, 312, 400, 65, "Primeiro nome", 25);
-		textFieldNome.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				textFieldNome.setFocusable(true);
-				if (textFieldNome.getText().equals("Nome e sobrenome")) {
-					textFieldNome.setText(null);
-				}
-				textFieldNome.setForeground(Color.BLACK);
-			}
-		});
-		textFieldNome.setForeground(Color.GRAY);
-		textFieldNome.setToolTipText("Primeiro nome");
-		textFieldNome.setFocusable(false);
-		frame.getContentPane().add(textFieldNome);
-		//
-
-		// text field sobrenome
+		// text field apelido
 		textFieldApelido = new JTextField("Apelido");
 		textFieldApelido.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		textFieldApelido.setBounds(27, 230, 400, 70);
@@ -151,7 +127,7 @@ public class InformeNome {
 		textFieldArrouba.setFocusable(false);
 		textFieldArrouba.setColumns(10);
 		textFieldArrouba.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
-		textFieldArrouba.setBounds(27, 550, 400, 70);
+		textFieldArrouba.setBounds(27, 427, 400, 70);
 		textFieldArrouba.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -179,26 +155,6 @@ public class InformeNome {
 		thread.start();
 		//
 
-		// label nome
-		JLabel lblInformeSeuNome = new JLabel("Informe seu nome verdadeiro. Não utilize");
-		lblInformeSeuNome.setBackground(Color.BLACK);
-		lblInformeSeuNome.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblInformeSeuNome.setForeground(Color.BLACK);
-		lblInformeSeuNome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInformeSeuNome.setBounds(9, 319, 435, 36);
-		//JLabel lblInformeSeuNome = ViewUtil.criaJLabel(45, 169, 400, 36, "Informe seu nome verdadeiro. Não utilize o",
-		//		25);
-		frame.getContentPane().add(lblInformeSeuNome);
-
-		JLabel lblInformeSeuNome2 = new JLabel("o nome de terceiros.");
-		lblInformeSeuNome2.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblInformeSeuNome2.setForeground(Color.BLACK);
-		lblInformeSeuNome2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInformeSeuNome2.setBounds(9, 350, 435, 36);
-		//JLabel lblInformeSeuNome2 = ViewUtil.criaJLabel(45, 200, 400, 36, "nome de terceiros.", 25);
-		frame.getContentPane().add(lblInformeSeuNome2);
-		//
-		
 		//lbl como ser chamado
 		JLabel lblComoSerChamado = new JLabel("Como gostaria de ser chamado?");
 		lblComoSerChamado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -215,7 +171,7 @@ public class InformeNome {
 		lblArrouba.setForeground(Color.BLACK);
 		lblArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		lblArrouba.setBackground(Color.BLACK);
-		lblArrouba.setBounds(9, 500, 435, 36);
+		lblArrouba.setBounds(9, 377, 435, 36);
 		frame.getContentPane().add(lblArrouba);
 		//
 
@@ -225,31 +181,30 @@ public class InformeNome {
 		btnAvancar.setContentAreaFilled(false);
 		btnAvancar.setForeground(Color.BLACK);
 		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnAvancar.setBounds(157, 678, 140, 44);
+		btnAvancar.setBounds(157, 555, 140, 44);
 		btnAvancar.setFocusable(false);
 		btnAvancar.setBorderPainted(false);
 		//JButton btnAvancar = ViewUtil.criaBotao(160, 550, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
-		InformeNome a = this;
+		InformeApelido a = this;
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Usuario novo_usuario = new Usuario();
-					novo_usuario.setNome(textFieldNome.getText());
-					novo_usuario.setApelido(textFieldApelido.getText());
-					novo_usuario.setArrouba(textFieldArrouba.getText());
+					Usuario novoUsuario = new Usuario();
+					novoUsuario.setApelido(textFieldApelido.getText());
+					novoUsuario.setArrouba(textFieldArrouba.getText());
 					
-
-					frame.setVisible(false);
 					TarefaAtualizaLabel.roda = false;
+					frame.setVisible(false);
 
 					if (FRAME_SEGUINTE != null) {
 						FRAME_SEGUINTE.setVisible(true);
 					} else {
-						new InformeTelefone(novo_usuario, a);
+						new InformeNomeENascimento(novoUsuario, a);
 					}
 				} catch (RuntimeException ex) {
+					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			}

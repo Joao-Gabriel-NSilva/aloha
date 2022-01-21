@@ -4,7 +4,7 @@
 
 	<persistence-unit name="aloha" transaction-type="RESOURCE_LOCAL">
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:1604/aloha?useSSL=false&amp;serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:1604/aloha?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="root" />

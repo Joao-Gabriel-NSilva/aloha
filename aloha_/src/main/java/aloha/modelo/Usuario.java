@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class Usuario {
 	private String senha;
 	@ElementCollection
 	private List<String> gostos = new ArrayList<>();
+	private Date dataDeNascimento;
 
 	public Usuario() {
 
@@ -162,6 +164,14 @@ public class Usuario {
 		this.arrouba = (arrouba.startsWith("@") ? arrouba : "@" + arrouba);
 	}
 
+	public Date getDataDeNascimento() {
+		return dataDeNascimento;
+	}
+
+	public void setDataDeNascimento(Date dataDeNascimento) {
+		this.dataDeNascimento = dataDeNascimento;
+	}
+
 	private void verificaNumeroNoNome(String string) {
 		for (String i : string.split("")) {
 			try {
@@ -243,7 +253,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [nome=" + nome + ", apelido=" + apelido + ", arrouba=" + arrouba + ", telefone=" + telefone
-				+ ", email=" + email + ", senha=" + senha + ", gostos=" + gostos + "]";
+				+ ", email=" + email + ", senha=" + senha + ", gostos=" + gostos + ", dataDeNascimento="
+				+ dataDeNascimento + "]";
 	}
-
 }
