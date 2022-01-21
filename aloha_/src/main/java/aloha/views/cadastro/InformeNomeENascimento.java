@@ -63,7 +63,7 @@ public class InformeNomeENascimento {
 	}
 
 	public InformeNomeENascimento(Usuario usuario, InformeApelido ia) {
-		this.USUARIO = usuario;
+		USUARIO = usuario;
 		FRAME_ANTERIOR = ia;
 		main(null);
 	}

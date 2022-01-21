@@ -17,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
@@ -128,13 +129,12 @@ public class ViewLogin {
 						: "@" + textFieldArrouba.getText().strip());
 
 				try {
-					Usuario usuario = Usuario.fazLogin(arrouba, senha);
+					Usuario usuario = UsuarioDAO.fazLogin(arrouba, senha);
 					JOptionPane.showMessageDialog(frame, "Login efetuado!");
 
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Falha no Login",
 							JOptionPane.WARNING_MESSAGE);
-					ex.printStackTrace();
 				}
 			}
 		});
