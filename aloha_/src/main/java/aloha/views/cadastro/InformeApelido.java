@@ -201,7 +201,7 @@ public class InformeApelido {
 					if (FRAME_SEGUINTE != null) {
 						FRAME_SEGUINTE.setVisible(true);
 					} else {
-						new InformeNomeENascimento(novoUsuario, a);
+						new InformeTelefone(novoUsuario, a);
 					}
 				} catch (RuntimeException ex) {
 					ex.printStackTrace();

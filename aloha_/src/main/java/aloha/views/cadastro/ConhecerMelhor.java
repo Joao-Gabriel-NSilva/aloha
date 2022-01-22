@@ -68,7 +68,7 @@ public class ConhecerMelhor {
 		frame.setTitle("Vamos nos conhecer melhor?");
 
 		// lbl 1, 2 e 3
-		JLabel lbl1 = new JLabel("Para o melhor de sua experiência,");
+		JLabel lbl1 = new JLabel("Para melhorar a sua experiência,");
 		lbl1.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
 		lbl1.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl1.setBounds(10, 102, 434, 62);
@@ -80,14 +80,14 @@ public class ConhecerMelhor {
 		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl2.setForeground(Color.BLACK);
 		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		lbl2.setBounds(10, 158, 434, 62);
+		lbl2.setBounds(10, 140, 434, 62);
 		frame.getContentPane().add(lbl2);
 		
 		JLabel lbl3 = new JLabel("seus gostos.");
 		lbl3.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl3.setForeground(Color.BLACK);
 		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		lbl3.setBounds(10, 216, 434, 62);
+		lbl3.setBounds(9, 179, 434, 62);
 		frame.getContentPane().add(lbl3);
 		//
 		
@@ -107,7 +107,7 @@ public class ConhecerMelhor {
 				if(FRAME_SEGUINTE != null) {
 					FRAME_SEGUINTE.setVisible(true);
 				} else {
-					new Gostos(USUARIO, frame);
+					new FestasFav(USUARIO, frame);
 				}
 			}
 		});
