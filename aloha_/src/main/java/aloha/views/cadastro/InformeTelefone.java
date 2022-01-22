@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import aloha.modelo.Teste;
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
 import aloha.util.TarefaAtualizaLabel;
@@ -129,7 +130,7 @@ public class InformeTelefone {
 		frame.getContentPane().add(comboBoxDDD);
 
 		try {
-			Scanner scanner = new Scanner(new File("dados/DDDs.csv"), "UTF-8");
+			Scanner scanner = new Scanner(new File(Teste.class.getResource("/dados/DDDs.csv").getFile()));
 			while (scanner.hasNextLine()) {
 				String linha = scanner.nextLine();
 				Scanner linhaScanner = new Scanner(linha);

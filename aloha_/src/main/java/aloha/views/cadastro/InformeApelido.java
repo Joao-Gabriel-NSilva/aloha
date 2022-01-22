@@ -97,7 +97,7 @@ public class InformeApelido {
 		frame.setTitle("Bem vindo!");
 
 		// text field apelido
-		textFieldApelido = new JTextField("Apelido");
+		textFieldApelido = new JTextField("");
 		textFieldApelido.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		textFieldApelido.setBounds(27, 230, 400, 70);
 		textFieldApelido.setColumns(10);
@@ -114,7 +114,7 @@ public class InformeApelido {
 			}
 		});
 		textFieldApelido.setForeground(Color.GRAY);
-		textFieldApelido.setToolTipText("Apelido");
+		textFieldApelido.setToolTipText("");
 		textFieldApelido.setFocusable(false);
 		frame.getContentPane().add(textFieldApelido);
 		//
