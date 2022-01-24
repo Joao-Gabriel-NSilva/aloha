@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -30,6 +31,7 @@ public class ViewLogin {
 	private JPasswordField passwordField;
 	public static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
+	private static boolean clicouUmaVez = false;
 
 	/**
 	 * Launch the application.
@@ -72,8 +74,8 @@ public class ViewLogin {
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 
-		// text fied email
-		textFieldArrouba = ViewUtil.criaTextField(20, 262, 400, 70, "@", 25);
+		// text fied email 74, 353, 346, 70
+		textFieldArrouba = ViewUtil.criaTextField(74, 262, 346, 70, "@", 25);
 		textFieldArrouba.setForeground(Color.GRAY);
 		textFieldArrouba.setFocusable(false);
 		textFieldArrouba.setToolTipText("Nome de usuário cadastrado");
@@ -91,33 +93,36 @@ public class ViewLogin {
 		//
 
 		// text fied senha
-		textFieldSenha = ViewUtil.criaTextField(20, 353, 400, 70, "Senha", 25);
+		textFieldSenha = ViewUtil.criaTextField(74, 353, 346, 70, "Senha", 25);
 		textFieldSenha.setForeground(Color.GRAY);
 		textFieldSenha.setFocusable(false);
 		textFieldSenha.setToolTipText("Senha");
 		textFieldSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textFieldSenha.setVisible(false);
-				textFieldSenha.setText(null);
-				textFieldSenha.setForeground(Color.BLACK);
-				passwordField.setVisible(true);
+				if(!clicouUmaVez) {
+					textFieldSenha.setVisible(false);
+					textFieldSenha.setText(null);
+					textFieldSenha.setForeground(Color.BLACK);
+					passwordField.setVisible(true);
+					clicouUmaVez = true;
+				}
 			}
 		});
 		frame.getContentPane().add(textFieldSenha);
 		//
 
-		// password field
+		// password field 
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		passwordField.setVisible(false);
-		passwordField.setBounds(20, 353, 400, 70);
+		passwordField.setBounds(74, 353, 346, 70);
 		passwordField.setBorder(new TextBubbleBorder(Color.BLACK, 1, 20, 0));
 		frame.getContentPane().add(passwordField);
 		//
 
 		// botão entrar
-		JButton botaoEntrar = ViewUtil.criaBotao(157, 530, 140, 44, "Entrar");
+		JButton botaoEntrar = ViewUtil.criaBotao(157, 580, 140, 44, "Entrar");
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String senha;
@@ -176,6 +181,7 @@ public class ViewLogin {
 				if (chckbxMostrarSenha.isSelected()) {
 					passwordField.setVisible(false);
 					textFieldSenha.setVisible(true);
+					textFieldSenha.setFocusable(true);
 					textFieldSenha.setText(((JTextField) passwordField).getText());
 				} else {
 					textFieldSenha.setVisible(false);
@@ -184,7 +190,7 @@ public class ViewLogin {
 				}
 			}
 		});
-		chckbxMostrarSenha.setBounds(21, 434, 111, 23);
+		chckbxMostrarSenha.setBounds(74, 439, 111, 23);
 		frame.getContentPane().add(chckbxMostrarSenha);
 		//
 
@@ -195,5 +201,31 @@ public class ViewLogin {
 		lblNewLabel.setBounds(64, 83, 325, 88);
 		frame.getContentPane().add(lblNewLabel);
 		//
+		
+		// imagens
+		JLabel lblUsuarioIcon = new JLabel("");
+		lblUsuarioIcon.setBounds(10, 278, 46, 55);
+		ImageIcon imgUsuario = new ImageIcon(this.getClass().getResource("/icons/user_icon.png"));
+		lblUsuarioIcon.setIcon(imgUsuario);
+		frame.getContentPane().add(lblUsuarioIcon);
+		
+		JLabel lblSenhaIcon = new JLabel("");
+		lblSenhaIcon.setBounds(10, 368, 46, 55);
+		ImageIcon imgSenha = new ImageIcon(this.getClass().getResource("/icons/password_icon.png"));
+		lblSenhaIcon.setIcon(imgSenha);
+		frame.getContentPane().add(lblSenhaIcon);
+		
+		JCheckBox chckbxManterConectado = new JCheckBox("Manter conectado");
+		chckbxManterConectado.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
+		chckbxManterConectado.setBounds(290, 439, 127, 23);
+		frame.getContentPane().add(chckbxManterConectado);
+		
+		
+		
+		
+		
+		//
+		
+		
 	}
 }
