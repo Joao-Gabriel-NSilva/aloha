@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
+import aloha.util.IconTextField;
 import aloha.util.TarefaAtualizaLabel;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
@@ -28,7 +29,7 @@ public class InformeApelido {
 	public static JFrame FRAME_SEGUINTE;
 	public static JFrame FRAME_ANTERIOR;
 	private JTextField textFieldApelido;
-	private JTextField textFieldArrouba;
+	private IconTextField textFieldArrouba;
 	private JLabel lblAloha;
 	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/icons/ligth_theme.png"));
 	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/icons/dark_theme.png"));
@@ -100,44 +101,18 @@ public class InformeApelido {
 		textFieldApelido = new JTextField("");
 		textFieldApelido.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		textFieldApelido.setBounds(27, 230, 400, 70);
-		textFieldApelido.setColumns(10);
 		textFieldApelido.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		//textFieldSobrenome = ViewUtil.criaTextField(20, 403, 400, 65, "Sobrenome", 25);
-		textFieldApelido.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				textFieldApelido.setFocusable(true);
-				if (textFieldApelido.getText().equals("Apelido")) {
-					textFieldApelido.setText(null);
-				}
-				textFieldApelido.setForeground(Color.BLACK);
-			}
-		});
-		textFieldApelido.setForeground(Color.GRAY);
-		textFieldApelido.setToolTipText("");
-		textFieldApelido.setFocusable(false);
+		textFieldApelido.setToolTipText("Nome pela qual quer ser chamado.");
 		frame.getContentPane().add(textFieldApelido);
 		//
 		
 		//text field @
-		textFieldArrouba = new JTextField();
-		textFieldArrouba.setText("@");
-		textFieldArrouba.setForeground(Color.GRAY);
+		textFieldArrouba = new IconTextField();
+		textFieldArrouba.setIcon(new ImageIcon(this.getClass().getResource("/icons/arrouba_resized.png")));
 		textFieldArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		textFieldArrouba.setFocusable(false);
-		textFieldArrouba.setColumns(10);
 		textFieldArrouba.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		textFieldArrouba.setBounds(27, 427, 400, 70);
-		textFieldArrouba.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				textFieldArrouba.setFocusable(true);
-				if (textFieldArrouba.getText().equals("@")) {
-					textFieldArrouba.setText(null);
-				}
-				textFieldArrouba.setForeground(Color.BLACK);
-			}
-		});
 		frame.getContentPane().add(textFieldArrouba);
 		//
 

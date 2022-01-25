@@ -18,11 +18,14 @@ public class UsuarioDAO {
 		EntityManager em = criaEntityManager();
 		Usuario usuario = em.find(Usuario.class, arrouba);
 		if(usuario == null) {
+			em.close();
 			throw new RuntimeException("Nome de usuário ou senha incorreta!");
 		}
 		if(usuario.getSenha().equals(senha)) {
+			em.close();
 			return usuario;
 		} else {
+			em.close();
 			throw new RuntimeException("Nome de usuário ou senha incorreta!");
 		}
 	}

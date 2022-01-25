@@ -22,6 +22,7 @@ import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
+import aloha.util.IconTextField;
 
 public class ViewLogin {
 
@@ -128,8 +129,16 @@ public class ViewLogin {
 				String senha;
 				String arrouba;
 				
-				senha = (passwordField.isVisible() ? ((JTextField) passwordField).getText().strip()
-						: textFieldSenha.getText().strip());
+				String senha1 = null;
+				for (char a : passwordField.getPassword()) {
+					if(senha1 == null) {
+						senha1 = String.valueOf(a);
+					} else {
+						senha1 = senha1 + a;
+					}
+				}
+				
+				senha = (passwordField.isVisible() ? senha1 : textFieldSenha.getText().strip());
 				arrouba = (textFieldArrouba.getText().startsWith("@") ? textFieldArrouba.getText().strip()
 						: "@" + textFieldArrouba.getText().strip());
 
@@ -159,6 +168,25 @@ public class ViewLogin {
         });
 		frame.getContentPane().add(botaoEntrar);
 		//
+		
+		//botão esqueceu a senha
+		JButton botaoEsqueceuSenha = ViewUtil.criaBotao(127, 630, 200, 44, "Esqueceu a senha?");
+		botaoEsqueceuSenha.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
+		botaoEsqueceuSenha.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		botaoEsqueceuSenha.setForeground(Color.BLUE);
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		if(frame.getContentPane().getBackground().equals(Color.WHITE)) {
+        			botaoEsqueceuSenha.setForeground(Color.BLACK);
+        		} else {
+        			botaoEsqueceuSenha.setForeground(Color.WHITE);
+        		}
+        	}
+        });
+		frame.getContentPane().add(botaoEsqueceuSenha);
 
 		// botão voltar
 		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
@@ -171,27 +199,12 @@ public class ViewLogin {
 				ViewInicial.FRAME_LOGIN = frame;
 			}
 		});
-		//
-
-		// check box mostrar senha
-		JCheckBox chckbxMostrarSenha = new JCheckBox("Mostrar senha");
-		chckbxMostrarSenha.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
-		chckbxMostrarSenha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (chckbxMostrarSenha.isSelected()) {
-					passwordField.setVisible(false);
-					textFieldSenha.setVisible(true);
-					textFieldSenha.setFocusable(true);
-					textFieldSenha.setText(((JTextField) passwordField).getText());
-				} else {
-					textFieldSenha.setVisible(false);
-					passwordField.setVisible(true);
-					passwordField.setText(textFieldSenha.getText());
-				}
-			}
-		});
-		chckbxMostrarSenha.setBounds(74, 439, 111, 23);
-		frame.getContentPane().add(chckbxMostrarSenha);
+		
+		// check box manter conectado
+		JCheckBox chckbxManterConectado = new JCheckBox("Manter conectado");
+		chckbxManterConectado.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
+		chckbxManterConectado.setBounds(74, 450, 127, 23);
+		frame.getContentPane().add(chckbxManterConectado);
 		//
 
 		// label bem vindo
@@ -202,7 +215,7 @@ public class ViewLogin {
 		frame.getContentPane().add(lblNewLabel);
 		//
 		
-		// imagens
+		// icones
 		JLabel lblUsuarioIcon = new JLabel("");
 		lblUsuarioIcon.setBounds(10, 278, 46, 55);
 		ImageIcon imgUsuario = new ImageIcon(this.getClass().getResource("/icons/user_icon.png"));
@@ -215,17 +228,31 @@ public class ViewLogin {
 		lblSenhaIcon.setIcon(imgSenha);
 		frame.getContentPane().add(lblSenhaIcon);
 		
-		JCheckBox chckbxManterConectado = new JCheckBox("Manter conectado");
-		chckbxManterConectado.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
-		chckbxManterConectado.setBounds(290, 439, 127, 23);
-		frame.getContentPane().add(chckbxManterConectado);
-		
-		
-		
-		
-		
+		ImageIcon imgOlhoAberto = new ImageIcon(this.getClass().getResource("/icons/eye_visible_hide_hidden_show_icon.png"));
+		ImageIcon imgOlhoAbertoComRisco = new ImageIcon(this.getClass().getResource("/icons/eye_slash_visible_hide_hidden_show_icon.png"));
+		JLabel lblOlho = new JLabel("");
+		lblOlho.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!textFieldSenha.getText().equals("Senha")) {
+					if(lblOlho.getIcon().equals(imgOlhoAberto)) {
+						lblOlho.setIcon(imgOlhoAbertoComRisco);
+						passwordField.setVisible(false);
+						textFieldSenha.setVisible(true);
+						textFieldSenha.setFocusable(true);
+						textFieldSenha.setText(((JTextField) passwordField).getText());
+					} else {
+						lblOlho.setIcon(imgOlhoAberto);
+						textFieldSenha.setVisible(false);
+						passwordField.setVisible(true);
+						passwordField.setText(textFieldSenha.getText());
+					}
+				}
+			}
+		});
+		lblOlho.setBounds(388, 441, 32, 32);
+		lblOlho.setIcon(imgOlhoAberto);
+		frame.getContentPane().add(lblOlho);
 		//
-		
-		
 	}
 }
