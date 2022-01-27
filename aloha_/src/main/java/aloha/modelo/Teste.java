@@ -25,8 +25,8 @@ public class Teste {
 //		usuario.getGostos().add("Refrigerante");
 //		usuario.getGostos().add("Rock");
 //		usuario.getGostos().add("Espetinho");
-		
-		//Usuario.salvaCadastro(usuario);
+
+//		Usuario.salvaCadastro(usuario);
 
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("aloha");
@@ -34,18 +34,13 @@ public class Teste {
 		
 		Usuario a = em.find(Usuario.class, "@jgabriel10x");
 		System.out.println(a);
-		
+
 //		em.getTransaction().begin();
 //		em.persist(usuario);
 //		em.getTransaction().commit();
 //		System.out.println("Pronto");
-		em.close();
-		emf.close();
+//		em.close();
+//		emf.close();
+
 	}
 }
-
-
-
-
-
-

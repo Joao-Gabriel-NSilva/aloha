@@ -18,17 +18,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import aloha.DAO.Configuracoes;
 import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
-import aloha.util.IconTextField;
 
 public class ViewLogin {
 
 	private JFrame frame;
 	private JTextField textFieldArrouba;
 	private JTextField textFieldSenha;
+	private JCheckBox chckbxManterConectado;
 	private JPasswordField passwordField;
 	public static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
@@ -144,6 +145,9 @@ public class ViewLogin {
 
 				try {
 					Usuario usuario = UsuarioDAO.fazLogin(arrouba, senha);
+					if(chckbxManterConectado.isSelected()) {
+						new Configuracoes(usuario);
+					}
 					JOptionPane.showMessageDialog(frame, "Login efetuado!");
 
 				} catch (Exception ex) {
@@ -201,7 +205,7 @@ public class ViewLogin {
 		});
 		
 		// check box manter conectado
-		JCheckBox chckbxManterConectado = new JCheckBox("Manter conectado");
+		chckbxManterConectado = new JCheckBox("Manter conectado");
 		chckbxManterConectado.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
 		chckbxManterConectado.setBounds(74, 450, 127, 23);
 		frame.getContentPane().add(chckbxManterConectado);

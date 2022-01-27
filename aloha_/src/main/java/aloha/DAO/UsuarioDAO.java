@@ -29,4 +29,9 @@ public class UsuarioDAO {
 			throw new RuntimeException("Nome de usuário ou senha incorreta!");
 		}
 	}
+	
+	public static Usuario achaUsuario(String nomeDeUsuario) {
+		EntityManager em = criaEntityManager();
+		return em.find(Usuario.class, nomeDeUsuario);
+	}
 }

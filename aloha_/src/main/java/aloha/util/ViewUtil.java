@@ -17,13 +17,15 @@ import javax.swing.border.LineBorder;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.SimpleEmail;
 
+import aloha.DAO.Configuracoes;
 import aloha.modelo.Usuario;
 
 public class ViewUtil {
 
+	private static Configuracoes config = new Configuracoes();
 	public static Border BORDA_ROSA = new LineBorder(new Color(255, 20, 147), 3);
-	public static Color COR_ATUAL_FUNDO = Color.WHITE;
-	public static Color COR_ATUAL_LETRAS = Color.BLACK;
+	public static Color COR_ATUAL_FUNDO = config.getCorAtualFundo();
+	public static Color COR_ATUAL_LETRAS = config.getCorAtualLetras();
 	
 	public static JButton criaBotao(Integer x, Integer y, Integer width, Integer height, String text) {
 		JButton botao = new JButton(text);
@@ -91,8 +93,11 @@ public class ViewUtil {
 	}
 	
 	public static void setDarkTheme(JFrame frame) {
-		COR_ATUAL_FUNDO = Color.DARK_GRAY;
-		COR_ATUAL_LETRAS = Color.WHITE;
+		config.setCorAtualFundo(Color.DARK_GRAY);
+		config.setCorAtualLetras(Color.WHITE);
+		COR_ATUAL_FUNDO = config.getCorAtualFundo();
+		COR_ATUAL_LETRAS = config.getCorAtualLetras();
+		
 		frame.getContentPane().setBackground(COR_ATUAL_FUNDO);
 		for(Component comp : frame.getContentPane().getComponents()) {
 			if(!(comp instanceof JTextField)){
@@ -102,8 +107,10 @@ public class ViewUtil {
 	}
 	
 	public static void setLightTheme(JFrame frame) {
-		COR_ATUAL_FUNDO = Color.WHITE;
-		COR_ATUAL_LETRAS = Color.BLACK;
+		config.setCorAtualFundo(Color.WHITE);
+		config.setCorAtualLetras(Color.BLACK);
+		COR_ATUAL_FUNDO = config.getCorAtualFundo();
+		COR_ATUAL_LETRAS = config.getCorAtualLetras();
 		
 		frame.getContentPane().setBackground(COR_ATUAL_FUNDO);
 		for(Component comp : frame.getContentPane().getComponents()) {

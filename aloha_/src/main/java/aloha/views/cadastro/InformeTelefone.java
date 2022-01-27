@@ -129,7 +129,7 @@ public class InformeTelefone {
 		frame.getContentPane().add(comboBoxDDD);
 
 		try {
-			Scanner scanner = new Scanner(new File(Teste.class.getResource("/dados/DDDs.csv").getFile()));
+			Scanner scanner = new Scanner(new File(InformeTelefone.class.getResource("/dados/DDDs.csv").getFile()));
 			while (scanner.hasNextLine()) {
 				String linha = scanner.nextLine();
 				Scanner linhaScanner = new Scanner(linha);
