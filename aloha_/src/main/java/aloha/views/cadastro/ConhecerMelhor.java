@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import aloha.modelo.Usuario;
+import aloha.util.TarefaAtualizaLabel;
 import aloha.util.ViewUtil;
 
 public class ConhecerMelhor {
@@ -171,16 +172,12 @@ public class ConhecerMelhor {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
+				TarefaAtualizaLabel.roda = true;
 				FRAME_ANTERIOR.setVisible(true);
 				CrieASenha.FRAME_SEGUINTE = frame;
 			}
 		});
 		//
 		
-//		JLabel lblBackground = new JLabel("");
-//        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/wallpaper_gradient-pink-black-linear.png"));
-//        lblBackground.setIcon(imgBackground);
-//        lblBackground.setBounds(0, 0, 444, 802);
-//        frame.getContentPane().add(lblBackground);
 	}
 }

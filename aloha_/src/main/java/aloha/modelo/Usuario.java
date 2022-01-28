@@ -8,6 +8,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import aloha.views.cadastro.CrieASenha;
+
 @Entity
 public class Usuario {
 
@@ -53,8 +55,8 @@ public class Usuario {
 			throw new RuntimeException("Informe seu nome!");
 		}
 
-		verificaNumeroNoNome(nome);
-		verificaCaracterEspecial(nome);
+		verificaSeHaNumero(nome);
+		verificaSeHaCaracterEspecial(nome);
 
 		this.nome = nome;
 	}
@@ -71,7 +73,7 @@ public class Usuario {
 		} else if (telefone.length() < 11 | telefone.length() > 11) {
 			throw new RuntimeException("Número inválido!");
 		}
-		verificaCaracterEspecial(telefone);
+		verificaSeHaCaracterEspecial(telefone);
 
 		for (String i : telefone.split("")) {
 			try {
@@ -123,6 +125,39 @@ public class Usuario {
 		return true;
 	}
 
+	public boolean setSenha(String senha) {
+		boolean maiuscula = false;
+		boolean minuscula = false;
+		boolean numero = false;
+		
+		if (verificaSeHaMaiuscula(senha)) {
+			CrieASenha.setLblMaiusculaIcone(true);
+			maiuscula = true;
+		} else {
+			CrieASenha.setLblMaiusculaIcone(false);
+		}
+		
+		if (verificaSeHaMinuscula(senha)) {
+			CrieASenha.setLblMinusculaIcone(true);
+			minuscula = true;
+		} else {
+			CrieASenha.setLblMinusculaIcone(false);
+		}
+
+		if (verificaSeHaNumero(senha)) {
+			CrieASenha.setLblNumeroIcone(true);
+			numero = true;
+		} else {
+			CrieASenha.setLblNumeroIcone(false);
+		}
+		
+		if(maiuscula & minuscula & numero) {
+			return true;
+		}
+		
+		return false;
+	}
+
 	public List<String> getGostos() {
 		return gostos;
 	}
@@ -138,8 +173,11 @@ public class Usuario {
 			throw new RuntimeException("Informe seu apelido!");
 		}
 
-		verificaNumeroNoNome(apelido);
-		verificaCaracterEspecial(apelido);
+		if (verificaSeHaNumero(apelido)) {
+			throw new RuntimeException("Não coloque números!");
+		} else if (verificaSeHaCaracterEspecial(apelido)) {
+			throw new RuntimeException("Não coloque caracteres especiais!");
+		}
 
 		this.apelido = apelido;
 	}
@@ -164,26 +202,60 @@ public class Usuario {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
-	private void verificaNumeroNoNome(String string) {
-		for (String i : string.split("")) {
-			try {
-				Integer.parseInt(i);
-				throw new RuntimeException("Não coloque números!");
-			} catch (NumberFormatException ex) {
+	private boolean verificaSeHaNumero(String string) {
+		if(string.isEmpty()) {
+			return false;
+		} else {
+			for (String i : string.split("")) {
+				try {
+					Integer.parseInt(i);
+					return true;
+				} catch (NumberFormatException ex) {
+				}
 			}
 		}
+		return false;
+	}
+	
+	private boolean verificaSeHaMinuscula(String senha) {
+		if(senha.isEmpty()) {
+			return false;
+		} else {
+			for (String i : senha.split("")) {
+				if(!verificaSeHaNumero(i) & i.equals(i.toLowerCase())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
-	private void verificaCaracterEspecial(String stringNome) {
+	private boolean verificaSeHaMaiuscula(String senha) {
+		if(senha.isEmpty()) {
+			return false;
+		} else {
+			for (String i : senha.split("")) {
+				if(!verificaSeHaNumero(i) & i.equals(i.toUpperCase())) {
+					return true;
+				}
+			}
+			
+		}
+		return false;
+	}
+
+	private boolean verificaSeHaCaracterEspecial(String string) {
 		String caracteresEspeciais = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
-		for (int i = 0; i < stringNome.length(); i++) {
-			char ch = stringNome.charAt(i);
+		for (int i = 0; i < string.length(); i++) {
+			char ch = string.charAt(i);
 			if (caracteresEspeciais.contains(Character.toString(ch))) {
-				throw new RuntimeException("Não coloque caracteres especiais!");
+				return true;
+
 			}
 		}
+		return false;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Usuario [nome=" + nome + ", apelido=" + apelido + ", arrouba=" + arrouba + ", telefone=" + telefone
