@@ -165,7 +165,7 @@ public class ConhecerMelhor {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar();
 		frame.getContentPane().add(lblVoltar);
 		
 		lblVoltar.addMouseListener(new MouseAdapter() {

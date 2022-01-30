@@ -1,6 +1,7 @@
 package aloha.modelo;
 
 import java.io.FileNotFoundException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,11 +30,11 @@ public class Teste {
 //		Usuario.salvaCadastro(usuario);
 
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("aloha");
-		EntityManager em = emf.createEntityManager();
-		
-		Usuario a = em.find(Usuario.class, "@jgabriel10x");
-		System.out.println(a);
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("aloha");
+//		EntityManager em = emf.createEntityManager();
+//		
+//		Usuario a = em.find(Usuario.class, "@jgabriel10x");
+//		System.out.println(a);
 
 //		em.getTransaction().begin();
 //		em.persist(usuario);
@@ -41,6 +42,18 @@ public class Teste {
 //		System.out.println("Pronto");
 //		em.close();
 //		emf.close();
+		
+		
+//		long tempoInicial = System.currentTimeMillis();
+//		long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
+//		
+//		while(tempoDecorrido != 31) {
+//			System.out.println((System.currentTimeMillis() - tempoInicial) / 1000);
+//		}
+		
+		System.out.println(ThreadLocalRandom.current().nextInt(100000, 999999 + 1));
+		
+		//System.out.println((System.currentTimeMillis() - a) / 1000);
 
 	}
 }

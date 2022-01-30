@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 
 import aloha.modelo.Usuario;
 import aloha.views.cadastro.CrieASenha;
+import aloha.views.main.RedefinirSenha;
 
 public class TarefaAtualizaLabel implements Runnable {
 	
@@ -12,16 +13,18 @@ public class TarefaAtualizaLabel implements Runnable {
 	private JTextField textField;
 	public static boolean roda = true;
 	private Usuario usuario;
+	private Object classe;
 	
 	public TarefaAtualizaLabel(JLabel lbl, JTextField txtField) {
 		this.label = lbl;
 		this.textField = txtField;
 	}
 	
-	public TarefaAtualizaLabel(JTextField txtField, Usuario usuario) {
+	public TarefaAtualizaLabel(JTextField txtField, Usuario usuario, Object classe) {
 		textField = txtField;
 		this.usuario = usuario;
-		
+		this.classe = classe;
+		System.out.println("thread iniciado");
 	}
 
 	@Override
@@ -38,9 +41,21 @@ public class TarefaAtualizaLabel implements Runnable {
 		} else {
 			while(roda) {
 				if(usuario.setSenha(textField.getText().trim())) {
-					CrieASenha.ATENDE_TODOS_OS_REQUISITOS = true;
+					
+					if(classe.equals(CrieASenha.class)) {
+						CrieASenha.ATENDE_TODOS_OS_REQUISITOS = true;
+						
+					} else if(classe.equals(RedefinirSenha.class)) {
+						RedefinirSenha.ATENDE_TODOS_OS_REQUISITOS = true;
+					} 
+					
 				} else {
-					CrieASenha.ATENDE_TODOS_OS_REQUISITOS = false;
+					
+					if(classe.equals(CrieASenha.class)) {
+						CrieASenha.ATENDE_TODOS_OS_REQUISITOS = false;
+					} else if(classe.equals(RedefinirSenha.class)) {
+						RedefinirSenha.ATENDE_TODOS_OS_REQUISITOS = false;
+					}
 				}
 			}
 		}

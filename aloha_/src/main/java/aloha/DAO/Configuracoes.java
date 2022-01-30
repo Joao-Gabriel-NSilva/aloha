@@ -28,7 +28,7 @@ public class Configuracoes {
 			this.corAtualFundo = objJson.get("corAtualFundo").equals("white") ? Color.WHITE : Color.DARK_GRAY;
 			this.corAtualLetras = objJson.get("corAtualLetras").equals("white") ? Color.WHITE : Color.BLACK;
 			this.usuarioConectado = objJson.get("usuarioConectado") != "null"
-					? UsuarioDAO.achaUsuario((String) objJson.get("usuarioConectado")) : null;
+					? UsuarioDAO.achaUsuarioPorPK((String) objJson.get("usuarioConectado")) : null;
 
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();

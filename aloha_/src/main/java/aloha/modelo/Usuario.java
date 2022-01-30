@@ -143,7 +143,7 @@ public class Usuario {
 		} else {
 			CrieASenha.setLblMinusculaIcone(false);
 		}
-
+		
 		if (verificaSeHaNumero(senha)) {
 			CrieASenha.setLblNumeroIcone(true);
 			numero = true;

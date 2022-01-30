@@ -8,14 +8,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		Configuracoes config = new Configuracoes();
-		//config.salvarConfigs();
 		
-		
-		if(config.getUsuarioConectado() == null) {
-			ViewInicial.main(null);
-		} else {
-			MainFeed.main(null);
-		}
+		ViewInicial.main(null);
+//		if(config.getUsuarioConectado() == null) {
+//			ViewInicial.main(null);
+//		} else {
+//			MainFeed.main(null);
+//		}
 		
 	}
 

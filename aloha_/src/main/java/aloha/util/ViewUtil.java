@@ -23,6 +23,7 @@ import aloha.modelo.Usuario;
 public class ViewUtil {
 
 	private static Configuracoes config = new Configuracoes();
+	private static Icones icones = new Icones();
 	public static Border BORDA_ROSA = new LineBorder(new Color(255, 20, 147), 3);
 	public static Color COR_ATUAL_FUNDO = config.getCorAtualFundo();
 	public static Color COR_ATUAL_LETRAS = config.getCorAtualLetras();
@@ -39,10 +40,9 @@ public class ViewUtil {
 		return botao;
 	}
 	
-	public static JLabel criaLblVoltar(Object classe) {
+	public static JLabel criaLblVoltar() {
 		JLabel lbl = new JLabel("");
-		ImageIcon img = new ImageIcon(classe.getClass().getResource("/icons/botao_voltar.png"));
-		lbl.setIcon(img);
+		lbl.setIcon(icones.getImgVoltar());
 		lbl.setBounds(5, 0, 37, 41);
 		
 		return lbl;
@@ -63,7 +63,6 @@ public class ViewUtil {
 		textField.setFont(new Font("Arial Narrow", Font.PLAIN, tamanhoFonte));
 		textField.setText(text);
 		textField.setBounds(x, y, width, height);
-		textField.setColumns(10);
 		textField.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		
 		return textField;
@@ -120,7 +119,7 @@ public class ViewUtil {
 		}
 	}
 	
-	public static boolean enviaEmail(Usuario usuario) {
+	public static boolean enviaEmailCadastro(Usuario usuario) {
 		String meuEmail = "alohausuario1@gmail.com";
 		String senha = "@ADMaloha00";
 		
@@ -143,4 +142,28 @@ public class ViewUtil {
 			throw new RuntimeException("Falha ao enviar email. Tem certeza que informou o email correto?"); 
 		}
 	}
+	
+	public static boolean enviaEmail(Usuario usuario, String subject, String msg) {
+		String meuEmail = "alohausuario1@gmail.com";
+		String senha = "@ADMaloha00";
+		
+		SimpleEmail email = new SimpleEmail();
+		email.setHostName("smtp.gmail.com");
+		email.setSmtpPort(465);
+		email.setAuthenticator(new DefaultAuthenticator(meuEmail, senha));
+		email.setSSLOnConnect(true);
+		
+		try {
+			email.setFrom(meuEmail);
+			email.setSubject(subject);
+			email.setMsg(msg);
+			email.addTo(usuario.getEmail());
+			email.send();
+			return true;
+			
+		} catch(Exception e) {
+			throw new RuntimeException("Falha ao enviar email."); 
+		}
+	}
 }
+

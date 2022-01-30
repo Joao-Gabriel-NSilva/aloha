@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import aloha.util.OutlineLabel;
+import aloha.util.Icones;
 import aloha.views.cadastro.InformeApelido;
 
 public class ViewInicial {
@@ -19,6 +20,7 @@ public class ViewInicial {
 	private JFrame frame;
 	public static JFrame FRAME_LOGIN;
 	public static JFrame FRAME_CADASTRO;
+	private Icones icones = new Icones();
 	
 
 	/**
@@ -123,36 +125,9 @@ public class ViewInicial {
         frame.getContentPane().add(labelCadastro);
         
         JLabel lblBackground = new JLabel("");
-        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/icons/fundo_preto_com_borda_rosa.jpg"));
-        lblBackground.setIcon(imgBackground);
+        lblBackground.setIcon(icones.getImgFundoPretoComBordaRosa());
         lblBackground.setBounds(0, -66, 444, 886);
         frame.getContentPane().add(lblBackground);
         //
-        
-        
-        //
-		
-//		JButton btnNewButton = new JButton("Já tem cadastro? Fazer login");
-//		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-//		btnNewButton.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-//		btnNewButton.setBounds(40, 558, 364, 59);
-//		frame.getContentPane().add(btnNewButton);
-//		
-//		JButton btnNewButton_1 = new JButton("Novo usuário? Fazer cadastro");
-//		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
-//		btnNewButton_1.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-//		btnNewButton_1.setBounds(40, 649, 364, 59);
-//		frame.getContentPane().add(btnNewButton_1);
-		
-//		JButton btn1 = ViewUtil.criaBotao(40, 570, 364, 59, "Já tem cadastro? Fazer login");
-//		btn1.setForeground(Color.WHITE);
-//		btn1.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-//		frame.getContentPane().add(btn1);
-//		
-//		JButton btn2 = ViewUtil.criaBotao(40, 649, 370, 59, "Novo usuário? Fazer cadastro");
-//		btn2.setForeground(Color.WHITE);
-//		btn2.setFont(new Font("Arial Narrow", Font.PLAIN, 30));
-//		frame.getContentPane().add(btn2);
-		
 	}
 }

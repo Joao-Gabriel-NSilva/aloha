@@ -133,7 +133,7 @@ public class InformeEmail {
 					if(EMAIL_ENVIADO == false) {
 						USUARIO.setEmail(textFieldEmail.getText());
 						
-						Runnable tarefa = new TarefaEnviaEmail(USUARIO);
+						Runnable tarefa = new TarefaEnviaEmail(USUARIO, true);
 						Thread thread = new Thread(tarefa, "Thread envia email");
 						thread.start();
 						
@@ -170,7 +170,7 @@ public class InformeEmail {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar();
 		frame.getContentPane().add(lblVoltar);
 
 		lblVoltar.addMouseListener(new MouseAdapter() {
@@ -182,11 +182,5 @@ public class InformeEmail {
 			}
 		});
 		//
-		
-//		JLabel lblBackground = new JLabel("");
-//        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/wallpaper_gradient-pink-black-linear.png"));
-//        lblBackground.setIcon(imgBackground);
-//        lblBackground.setBounds(0, 0, 444, 802);
-//        frame.getContentPane().add(lblBackground);
 	}
 }

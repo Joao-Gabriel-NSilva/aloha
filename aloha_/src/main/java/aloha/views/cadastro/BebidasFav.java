@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
 import aloha.util.ViewUtil;
+import aloha.views.main.ViewInicial;
 
 public class BebidasFav {
 
@@ -282,8 +284,9 @@ public class BebidasFav {
 		JButton btnAvancar = new JButton("Avançar");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(USUARIO.getGostos());
-				
+				UsuarioDAO.cadastra(USUARIO);
+				frame.setVisible(false);
+				ViewInicial.main(null);
 			}
 		});
 		btnAvancar.addMouseListener(new MouseAdapter() {
@@ -312,7 +315,7 @@ public class BebidasFav {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar();
 		frame.getContentPane().add(lblVoltar);
 
 		lblVoltar.addMouseListener(new MouseAdapter() {

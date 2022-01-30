@@ -21,18 +21,20 @@ import aloha.util.IconTextField;
 import aloha.util.TarefaAtualizaLabel;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
+import aloha.util.Icones;
 import aloha.views.main.ViewInicial;
 
 public class InformeApelido {
 
 	private JFrame frame;
+	private Icones icones = new Icones();
 	public static JFrame FRAME_SEGUINTE;
 	public static JFrame FRAME_ANTERIOR;
 	private JTextField textFieldApelido;
 	private IconTextField textFieldArrouba;
 	private JLabel lblAloha;
-	private ImageIcon sol = new ImageIcon(this.getClass().getResource("/icons/ligth_theme.png"));
-	private ImageIcon lua = new ImageIcon(this.getClass().getResource("/icons/dark_theme.png"));
+	private ImageIcon sol = icones.getImgLightTheme();
+	private ImageIcon lua = icones.getImgDarkTheme();
 	private Thread thread;
 
 	/**
@@ -109,7 +111,7 @@ public class InformeApelido {
 		
 		//text field @
 		textFieldArrouba = new IconTextField();
-		textFieldArrouba.setIcon(new ImageIcon(this.getClass().getResource("/icons/arrouba_resized.png")));
+		textFieldArrouba.setIcon(icones.getImgArrouba());
 		textFieldArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		textFieldArrouba.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		textFieldArrouba.setBounds(27, 427, 400, 70);
@@ -135,7 +137,6 @@ public class InformeApelido {
 		lblComoSerChamado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblComoSerChamado.setForeground(Color.BLACK);
 		lblComoSerChamado.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblComoSerChamado.setBackground(Color.BLACK);
 		lblComoSerChamado.setBounds(9, 180, 435, 36);
 		frame.getContentPane().add(lblComoSerChamado);
 		//
@@ -145,7 +146,6 @@ public class InformeApelido {
 		lblArrouba.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArrouba.setForeground(Color.BLACK);
 		lblArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblArrouba.setBackground(Color.BLACK);
 		lblArrouba.setBounds(9, 377, 435, 36);
 		frame.getContentPane().add(lblArrouba);
 		//
@@ -201,7 +201,7 @@ public class InformeApelido {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar();
 		frame.getContentPane().add(lblVoltar);
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -229,14 +229,6 @@ public class InformeApelido {
 		});
 		lblTema.setIcon(sol);
 		frame.getContentPane().add(lblTema);
-		
-		
 		//
-		
-//		JLabel lblBackground = new JLabel("");
-//        ImageIcon imgBackground = new ImageIcon(this.getClass().getResource("/wallpaper_gradient-pink-black-linear.png"));
-//        lblBackground.setIcon(imgBackground);
-//        lblBackground.setBounds(0, 0, 454, 812);
-//        frame.getContentPane().add(lblBackground);
 	}
 }

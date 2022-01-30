@@ -1,4 +1,4 @@
-package aloha.views.cadastro;
+package aloha.views.main;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,28 +15,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
-import aloha.util.Icones;
 import aloha.util.TarefaAtualizaLabel;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
+import aloha.views.cadastro.CrieASenha;
 
-public class CrieASenha {
+public class RedefinirSenha {
 
 	public static boolean ATENDE_TODOS_OS_REQUISITOS = false;
-	private static Icones icones = new Icones();
 	private JFrame frame;
 	private JTextField textFieldSenha;
 	private JTextField textFieldConfirmeSenha;
 	private static Usuario USUARIO;
-	private static JFrame FRAME_ANTERIOR;
+	public static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
 	public static JLabel lblMaiuscula;
 	public static JLabel lblMinuscula;
 	public static JLabel lblNumero;
-	private static Thread thread1 = null;
-	private static ImageIcon imgVerificado = icones.getImgVerificado();
-	private static ImageIcon imgNaoVerificado = icones.getImgNaoVerificado();
+	private static Thread thread1;
 
 	/**
 	 * Launch the application.
@@ -46,7 +43,7 @@ public class CrieASenha {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CrieASenha window = new CrieASenha();
+					RedefinirSenha window = new RedefinirSenha();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,29 +55,14 @@ public class CrieASenha {
 	/**
 	 * Create the application.
 	 */
-	public CrieASenha() {
+	public RedefinirSenha() {
 		initialize();
 	}
 
-	public CrieASenha(Usuario usuario, JFrame frameAnterior) {
+	public RedefinirSenha(Usuario usuario, JFrame frmAnterior) {
 		USUARIO = usuario;
-		FRAME_ANTERIOR = frameAnterior;
+		FRAME_ANTERIOR = frmAnterior;
 		main(null);
-	}
-
-	public static void setLblMaiusculaIcone(boolean ehVerificado) {
-		ImageIcon img = ehVerificado ? imgVerificado : imgNaoVerificado;
-		lblMaiuscula.setIcon(img);
-	}
-
-	public static void setLblMinusculaIcone(boolean ehVerificado) {
-		ImageIcon img = ehVerificado ? imgVerificado : imgNaoVerificado;
-		lblMinuscula.setIcon(img);
-	}
-
-	public static void setLblNumeroIcone(boolean ehVerificado) {
-		ImageIcon img = ehVerificado ? imgVerificado : imgNaoVerificado;
-		lblNumero.setIcon(img);
 	}
 
 	/**
@@ -98,7 +80,7 @@ public class CrieASenha {
 		frame.setTitle("Crie uma senha!");
 
 		// label 1
-		JLabel lbl1 = new JLabel("Crie sua senha!");
+		JLabel lbl1 = new JLabel("Crie uma nova senha");
 		lbl1.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
 		lbl1.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl1.setBounds(97, 50, 260, 62);
@@ -109,27 +91,19 @@ public class CrieASenha {
 		//
 
 		// label 2, 3 e 4
-		JLabel lbl2 = new JLabel("Para sua maior segurança, é necessário que");
+		JLabel lbl2 = new JLabel("A nova senha deve conter:");
 		lbl2.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl2.setBounds(0, 123, 454, 41);
+		lbl2.setBounds(0, 142, 454, 41);
 		lbl2.setForeground(Color.BLACK);
 		// JLabel lbl2 = ViewUtil.criaJLabel(16, 123, 460, 41, "Crie uma senha com pelo
 		// menos 8 dígitos. Não", 20);
 		frame.getContentPane().add(lbl2);
 
-		JLabel lbl3 = new JLabel("utilize no minimo 8 caracteres, dentre eles:");
-		lbl3.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lbl3.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl3.setBounds(0, 151, 454, 41);
-		lbl3.setForeground(Color.BLACK);
-		// JLabel lbl3 = ViewUtil.criaJLabel(16, 151, 460, 41,
-		frame.getContentPane().add(lbl3);
-
 		JLabel lbl4 = new JLabel("uma maiúscula;");
 		lbl4.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		lbl4.setHorizontalAlignment(SwingConstants.LEFT);
-		lbl4.setBounds(157, 204, 140, 36);
+		lbl4.setBounds(157, 199, 140, 36);
 		lbl4.setForeground(Color.BLACK);
 		// JLabel lbl4 = ViewUtil.criaJLabel(16, 179, 460, 41, "repetidos (ex: 111).",
 		// 20);
@@ -139,14 +113,14 @@ public class CrieASenha {
 		lblUmaMinsculaE.setHorizontalAlignment(SwingConstants.LEFT);
 		lblUmaMinsculaE.setForeground(Color.BLACK);
 		lblUmaMinsculaE.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblUmaMinsculaE.setBounds(157, 251, 140, 30);
+		lblUmaMinsculaE.setBounds(157, 246, 140, 30);
 		frame.getContentPane().add(lblUmaMinsculaE);
 
 		JLabel lblEUmNmero = new JLabel("um número.");
 		lblEUmNmero.setHorizontalAlignment(SwingConstants.LEFT);
 		lblEUmNmero.setForeground(Color.BLACK);
 		lblEUmNmero.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
-		lblEUmNmero.setBounds(171, 294, 111, 36);
+		lblEUmNmero.setBounds(171, 289, 111, 36);
 		frame.getContentPane().add(lblEUmNmero);
 		//
 
@@ -160,12 +134,8 @@ public class CrieASenha {
 		// textFieldSenha = ViewUtil.criaTextField(20, 303, 400, 65, "Senha", 26);
 		textFieldSenha.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				textFieldSenha.setFocusable(true);
-			}
-			
-			@Override
 			public void mouseClicked(MouseEvent e) {
+				textFieldSenha.setFocusable(true);
 				if (textFieldSenha.getText().equals("Senha")) {
 					textFieldSenha.setText(null);
 				}
@@ -174,7 +144,7 @@ public class CrieASenha {
 				if (thread1 == null) {
 					TarefaAtualizaLabel.roda = true;
 					TarefaAtualizaLabel tarefa = new TarefaAtualizaLabel(textFieldSenha, USUARIO,
-							CrieASenha.class);
+							RedefinirSenha.class);
 					thread1 = new Thread(tarefa, "verificador de condições da senha");
 					thread1.start();
 				}
@@ -196,11 +166,6 @@ public class CrieASenha {
 		// senha", 26);
 		textFieldConfirmeSenha.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				textFieldConfirmeSenha.setFocusable(true);
-			}
-			
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				textFieldConfirmeSenha.setFocusable(true);
 				if (textFieldConfirmeSenha.getText().equals("Confirme a senha")) {
@@ -216,28 +181,35 @@ public class CrieASenha {
 		//
 
 		// botão avançar
-		JButton btnAvancar = new JButton("Avançar");
-		btnAvancar.setOpaque(true);
-		btnAvancar.setContentAreaFilled(false);
-		btnAvancar.setForeground(Color.BLACK);
-		btnAvancar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		btnAvancar.setBounds(157, 563, 140, 44);
-		btnAvancar.setFocusable(false);
-		btnAvancar.setBorderPainted(false);
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setOpaque(true);
+		btnConfirmar.setContentAreaFilled(false);
+		btnConfirmar.setForeground(Color.BLACK);
+		btnConfirmar.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		btnConfirmar.setBounds(147, 563, 160, 44);
+		btnConfirmar.setFocusable(false);
+		btnConfirmar.setBorderPainted(false);
 		// JButton btnAvancar = ViewUtil.criaBotao(160, 500, 140, 44, "Avançar");
-		btnAvancar.addActionListener(new ActionListener() {
+		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					System.out.println(ATENDE_TODOS_OS_REQUISITOS);
+					System.out.println(USUARIO.setSenha(textFieldSenha.getText(), textFieldConfirmeSenha.getText()));
 					if (ATENDE_TODOS_OS_REQUISITOS
 							& USUARIO.setSenha(textFieldSenha.getText(), textFieldConfirmeSenha.getText())) {
 						TarefaAtualizaLabel.roda = false;
 						thread1 = null;
 						frame.setVisible(false);
+
+						UsuarioDAO.salvaAlteracoes(USUARIO);
+						
+						ViewLogin.FRAME_ANTERIOR = frame;
 						if (FRAME_SEGUINTE != null) {
 							FRAME_SEGUINTE.setVisible(true);
 						} else {
-							new ConhecerMelhor(USUARIO, frame);
+							new ViewLogin(frame);
 						}
+
 					}
 
 				} catch (RuntimeException ex) {
@@ -245,22 +217,22 @@ public class CrieASenha {
 				}
 			}
 		});
-		btnAvancar.addMouseListener(new MouseAdapter() {
+		btnConfirmar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnAvancar.setForeground(Color.BLUE);
+				btnConfirmar.setForeground(Color.BLUE);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if (frame.getContentPane().getBackground().equals(Color.WHITE)) {
-					btnAvancar.setForeground(Color.BLACK);
+					btnConfirmar.setForeground(Color.BLACK);
 				} else {
-					btnAvancar.setForeground(Color.WHITE);
+					btnConfirmar.setForeground(Color.WHITE);
 				}
 			}
 		});
-		frame.getContentPane().add(btnAvancar);
+		frame.getContentPane().add(btnConfirmar);
 		//
 
 		// botão voltar
@@ -271,23 +243,27 @@ public class CrieASenha {
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
 				FRAME_ANTERIOR.setVisible(true);
-				InformeEmail.FRAME_SEGUINTE = frame;
+				ConfirmeCodRecu.FRAME_SEGUINTE = frame;
 			}
 		});
 		//
 
 		// labels de verificado
 		lblMaiuscula = new JLabel("");
-		lblMaiuscula.setBounds(311, 199, 46, 41);
+		lblMaiuscula.setBounds(311, 194, 46, 41);
 		frame.getContentPane().add(lblMaiuscula);
+		CrieASenha.lblMaiuscula = lblMaiuscula;
 
 		lblMinuscula = new JLabel("");
-		lblMinuscula.setBounds(311, 246, 46, 41);
+		lblMinuscula.setBounds(311, 241, 46, 41);
 		frame.getContentPane().add(lblMinuscula);
+		CrieASenha.lblMinuscula = lblMinuscula;
 
 		lblNumero = new JLabel("");
-		lblNumero.setBounds(311, 295, 46, 41);
+		lblNumero.setBounds(311, 290, 46, 41);
 		frame.getContentPane().add(lblNumero);
+		CrieASenha.lblNumero = lblNumero;
 		//
 	}
+
 }

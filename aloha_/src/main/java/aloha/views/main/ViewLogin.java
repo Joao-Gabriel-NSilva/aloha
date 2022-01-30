@@ -23,6 +23,7 @@ import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
+import aloha.util.Icones;
 
 public class ViewLogin {
 
@@ -33,7 +34,9 @@ public class ViewLogin {
 	private JPasswordField passwordField;
 	public static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
+	public static JFrame FRAME_ESQUECEU_SENHA;
 	private static boolean clicouUmaVez = false;
+	private Icones icones = new Icones();
 
 	/**
 	 * Launch the application.
@@ -176,6 +179,16 @@ public class ViewLogin {
 		//botão esqueceu a senha
 		JButton botaoEsqueceuSenha = ViewUtil.criaBotao(127, 630, 200, 44, "Esqueceu a senha?");
 		botaoEsqueceuSenha.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
+		botaoEsqueceuSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				if(FRAME_ESQUECEU_SENHA != null) {
+					FRAME_ESQUECEU_SENHA.setVisible(true);
+				} else {
+					new EsqueceuASenha(frame);
+				}
+			}
+		});
 		botaoEsqueceuSenha.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseEntered(MouseEvent e) {
@@ -193,7 +206,7 @@ public class ViewLogin {
 		frame.getContentPane().add(botaoEsqueceuSenha);
 
 		// botão voltar
-		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar();
 		frame.getContentPane().add(lblVoltar);
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -203,6 +216,7 @@ public class ViewLogin {
 				ViewInicial.FRAME_LOGIN = frame;
 			}
 		});
+		//
 		
 		// check box manter conectado
 		chckbxManterConectado = new JCheckBox("Manter conectado");
@@ -222,18 +236,17 @@ public class ViewLogin {
 		// icones
 		JLabel lblUsuarioIcon = new JLabel("");
 		lblUsuarioIcon.setBounds(10, 278, 46, 55);
-		ImageIcon imgUsuario = new ImageIcon(this.getClass().getResource("/icons/user_icon.png"));
-		lblUsuarioIcon.setIcon(imgUsuario);
+		lblUsuarioIcon.setIcon(icones.getImgUsuario());
 		frame.getContentPane().add(lblUsuarioIcon);
 		
 		JLabel lblSenhaIcon = new JLabel("");
 		lblSenhaIcon.setBounds(10, 368, 46, 55);
-		ImageIcon imgSenha = new ImageIcon(this.getClass().getResource("/icons/password_icon.png"));
-		lblSenhaIcon.setIcon(imgSenha);
+		lblSenhaIcon.setIcon(icones.getImgSenha());
 		frame.getContentPane().add(lblSenhaIcon);
 		
-		ImageIcon imgOlhoAberto = new ImageIcon(this.getClass().getResource("/icons/eye_visible_hide_hidden_show_icon.png"));
-		ImageIcon imgOlhoAbertoComRisco = new ImageIcon(this.getClass().getResource("/icons/eye_slash_visible_hide_hidden_show_icon.png"));
+		ImageIcon imgOlhoAberto = icones.getImgOlhoAberto();
+		ImageIcon imgOlhoAbertoComRisco = icones.getImgOlhoAbertoComRisco();
+		
 		JLabel lblOlho = new JLabel("");
 		lblOlho.addMouseListener(new MouseAdapter() {
 			@Override

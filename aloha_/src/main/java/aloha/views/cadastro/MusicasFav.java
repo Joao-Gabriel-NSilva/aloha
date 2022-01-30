@@ -319,7 +319,6 @@ public class MusicasFav {
 		JButton btnAvancar = new JButton("Avançar");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(USUARIO.getGostos());
 				
 				frame.setVisible(false);
 				if(FRAME_SEGUINTE != null) {
@@ -355,7 +354,7 @@ public class MusicasFav {
 		//
 
 		// botão voltar
-		JLabel lblVoltar = ViewUtil.criaLblVoltar(this);
+		JLabel lblVoltar = ViewUtil.criaLblVoltar();
 		frame.getContentPane().add(lblVoltar);
 
 		lblVoltar.addMouseListener(new MouseAdapter() {
