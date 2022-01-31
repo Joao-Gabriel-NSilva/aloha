@@ -11,7 +11,7 @@ public class TarefaAtualizaLabel implements Runnable {
 	
 	private JLabel label;
 	private JTextField textField;
-	public static boolean roda = true;
+	private boolean roda = true;
 	private Usuario usuario;
 	private Object classe;
 	
@@ -25,6 +25,14 @@ public class TarefaAtualizaLabel implements Runnable {
 		this.usuario = usuario;
 		this.classe = classe;
 		System.out.println("thread iniciado");
+	}
+	
+	public void ativa() {
+		this.roda = true;
+	}
+	
+	public void desativa() {
+		this.roda = false;
 	}
 
 	@Override

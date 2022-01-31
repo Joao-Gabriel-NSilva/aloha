@@ -86,8 +86,13 @@ public class ViewLogin {
 		textFieldArrouba.setToolTipText("Nome de usuário cadastrado");
 		textFieldArrouba.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) {
 				textFieldArrouba.setFocusable(true);
+			}
+		});
+		textFieldArrouba.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if (textFieldArrouba.getText().equals("@")) {
 					textFieldArrouba.setText(null);
 				}
@@ -102,6 +107,12 @@ public class ViewLogin {
 		textFieldSenha.setForeground(Color.GRAY);
 		textFieldSenha.setFocusable(false);
 		textFieldSenha.setToolTipText("Senha");
+		textFieldSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldSenha.setFocusable(true);
+			}
+		});
 		textFieldSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

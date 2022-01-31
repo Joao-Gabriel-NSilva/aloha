@@ -132,19 +132,23 @@ public class RedefinirSenha {
 		textFieldSenha.setColumns(10);
 		textFieldSenha.setBorder(new TextBubbleBorder(Color.BLACK, 1, 20, 0));
 		// textFieldSenha = ViewUtil.criaTextField(20, 303, 400, 65, "Senha", 26);
+		TarefaAtualizaLabel tarefa = new TarefaAtualizaLabel(textFieldSenha, USUARIO, RedefinirSenha.class);
+		textFieldSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldSenha.setFocusable(true);
+			}
+		});
 		textFieldSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textFieldSenha.setFocusable(true);
 				if (textFieldSenha.getText().equals("Senha")) {
 					textFieldSenha.setText(null);
 				}
 				textFieldSenha.setForeground(Color.BLACK);
 
 				if (thread1 == null) {
-					TarefaAtualizaLabel.roda = true;
-					TarefaAtualizaLabel tarefa = new TarefaAtualizaLabel(textFieldSenha, USUARIO,
-							RedefinirSenha.class);
+					tarefa.ativa();
 					thread1 = new Thread(tarefa, "verificador de condições da senha");
 					thread1.start();
 				}
@@ -167,11 +171,16 @@ public class RedefinirSenha {
 		textFieldConfirmeSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textFieldConfirmeSenha.setFocusable(true);
 				if (textFieldConfirmeSenha.getText().equals("Confirme a senha")) {
 					textFieldConfirmeSenha.setText(null);
 				}
 				textFieldConfirmeSenha.setForeground(Color.BLACK);
+			}
+		});
+		textFieldConfirmeSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldConfirmeSenha.setFocusable(true);
 			}
 		});
 		textFieldConfirmeSenha.setForeground(Color.GRAY);
@@ -197,12 +206,12 @@ public class RedefinirSenha {
 					System.out.println(USUARIO.setSenha(textFieldSenha.getText(), textFieldConfirmeSenha.getText()));
 					if (ATENDE_TODOS_OS_REQUISITOS
 							& USUARIO.setSenha(textFieldSenha.getText(), textFieldConfirmeSenha.getText())) {
-						TarefaAtualizaLabel.roda = false;
+						tarefa.desativa();
 						thread1 = null;
 						frame.setVisible(false);
 
 						UsuarioDAO.salvaAlteracoes(USUARIO);
-						
+
 						ViewLogin.FRAME_ANTERIOR = frame;
 						if (FRAME_SEGUINTE != null) {
 							FRAME_SEGUINTE.setVisible(true);

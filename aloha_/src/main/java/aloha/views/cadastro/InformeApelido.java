@@ -65,26 +65,6 @@ public class InformeApelido {
 		main(null);
 	}
 
-	public Thread getThread() {
-		return thread;
-	}
-
-	public void setThread(Thread thread) {
-		this.thread = thread;
-	}
-
-	public JFrame getFrame() {
-		return frame;
-	}
-	
-	public JTextField getTextFieldApelido() {
-		return textFieldApelido;
-	}
-
-	public JLabel getLblAloha() {
-		return lblAloha;
-	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -98,6 +78,16 @@ public class InformeApelido {
 		frame.getContentPane().setLayout(null);
 		//frame = ViewUtil.criaJFrame(100, 100, 460, 840);
 		frame.setTitle("Bem vindo!");
+		
+		// label aloha
+		lblAloha = new JLabel("Aloha, novo usuário!");
+		lblAloha.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
+		lblAloha.setForeground(Color.BLACK);
+		lblAloha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAloha.setBounds(15, 49, 423, 62);
+		//lblAloha = ViewUtil.criaJLabel(120, 49, 300, 62, null, 32);
+		frame.getContentPane().add(lblAloha);
+		//
 
 		// text field apelido
 		textFieldApelido = new JTextField("");
@@ -106,6 +96,23 @@ public class InformeApelido {
 		textFieldApelido.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		//textFieldSobrenome = ViewUtil.criaTextField(20, 403, 400, 65, "Sobrenome", 25);
 		textFieldApelido.setToolTipText("Nome pela qual quer ser chamado.");
+		TarefaAtualizaLabel tarefa = new TarefaAtualizaLabel(lblAloha, textFieldApelido);
+		textFieldApelido.setFocusable(false);
+		textFieldApelido.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldApelido.setFocusable(true);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(thread == null) {
+					tarefa.ativa();
+					thread = new Thread(tarefa, "Thread atualizador de label");
+					thread.start();
+				}
+			}
+		});
 		frame.getContentPane().add(textFieldApelido);
 		//
 		
@@ -115,21 +122,14 @@ public class InformeApelido {
 		textFieldArrouba.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		textFieldArrouba.setBorder(new TextBubbleBorder(Color.BLACK,1,20,0));
 		textFieldArrouba.setBounds(27, 427, 400, 70);
+		textFieldArrouba.setFocusable(false);
+		textFieldArrouba.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldArrouba.setFocusable(true);
+			}
+		});
 		frame.getContentPane().add(textFieldArrouba);
-		//
-
-		// label aloha
-		lblAloha = new JLabel("Aloha, novo usuário!");
-		lblAloha.setFont(new Font("Arial Narrow", Font.PLAIN, 32));
-		lblAloha.setForeground(Color.BLACK);
-		lblAloha.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAloha.setBounds(15, 49, 423, 62);
-		//lblAloha = ViewUtil.criaJLabel(120, 49, 300, 62, null, 32);
-		frame.getContentPane().add(lblAloha);
-
-		Runnable tarefa = new TarefaAtualizaLabel(lblAloha, textFieldApelido);
-		setThread(new Thread(tarefa, "Thread atualizador de label"));
-		thread.start();
 		//
 
 		//lbl como ser chamado
@@ -162,7 +162,6 @@ public class InformeApelido {
 		//JButton btnAvancar = ViewUtil.criaBotao(160, 550, 140, 44, "Avançar");
 		frame.getContentPane().add(btnAvancar);
 
-		InformeApelido a = this;
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -170,13 +169,14 @@ public class InformeApelido {
 					novoUsuario.setApelido(textFieldApelido.getText());
 					novoUsuario.setArrouba(textFieldArrouba.getText());
 					
-					TarefaAtualizaLabel.roda = false;
+					tarefa.desativa();
+					thread = null;
 					frame.setVisible(false);
 
 					if (FRAME_SEGUINTE != null) {
 						FRAME_SEGUINTE.setVisible(true);
 					} else {
-						new InformeTelefone(novoUsuario, a);
+						new InformeTelefone(novoUsuario, frame);
 					}
 				} catch (RuntimeException ex) {
 					ex.printStackTrace();

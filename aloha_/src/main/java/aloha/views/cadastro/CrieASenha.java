@@ -158,12 +158,13 @@ public class CrieASenha {
 		textFieldSenha.setColumns(10);
 		textFieldSenha.setBorder(new TextBubbleBorder(Color.BLACK, 1, 20, 0));
 		// textFieldSenha = ViewUtil.criaTextField(20, 303, 400, 65, "Senha", 26);
+		TarefaAtualizaLabel tarefa = new TarefaAtualizaLabel(textFieldSenha, USUARIO, CrieASenha.class);
 		textFieldSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				textFieldSenha.setFocusable(true);
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (textFieldSenha.getText().equals("Senha")) {
@@ -172,9 +173,7 @@ public class CrieASenha {
 				textFieldSenha.setForeground(Color.BLACK);
 
 				if (thread1 == null) {
-					TarefaAtualizaLabel.roda = true;
-					TarefaAtualizaLabel tarefa = new TarefaAtualizaLabel(textFieldSenha, USUARIO,
-							CrieASenha.class);
+					tarefa.ativa();
 					thread1 = new Thread(tarefa, "verificador de condições da senha");
 					thread1.start();
 				}
@@ -199,7 +198,7 @@ public class CrieASenha {
 			public void mouseEntered(MouseEvent e) {
 				textFieldConfirmeSenha.setFocusable(true);
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				textFieldConfirmeSenha.setFocusable(true);
@@ -230,7 +229,7 @@ public class CrieASenha {
 				try {
 					if (ATENDE_TODOS_OS_REQUISITOS
 							& USUARIO.setSenha(textFieldSenha.getText(), textFieldConfirmeSenha.getText())) {
-						TarefaAtualizaLabel.roda = false;
+						tarefa.desativa();
 						thread1 = null;
 						frame.setVisible(false);
 						if (FRAME_SEGUINTE != null) {

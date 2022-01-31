@@ -172,7 +172,6 @@ public class ConhecerMelhor {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(false);
-				TarefaAtualizaLabel.roda = true;
 				FRAME_ANTERIOR.setVisible(true);
 				CrieASenha.FRAME_SEGUINTE = frame;
 			}

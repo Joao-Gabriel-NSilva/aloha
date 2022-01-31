@@ -29,7 +29,7 @@ public class InformeTelefone {
 	private JTextField textFieldTelefone;
 	private JComboBox<String> comboBoxDDD;
 	private static Usuario USUARIO;
-	private static InformeApelido FRAME_ANTERIOR;
+	private static JFrame FRAME_ANTERIOR;
 	public static JFrame FRAME_SEGUINTE;
 
 	/**
@@ -55,7 +55,7 @@ public class InformeTelefone {
 		initialize();
 	}
 
-	public InformeTelefone(Usuario novo_usuario, InformeApelido frameAnterior) {
+	public InformeTelefone(Usuario novo_usuario, JFrame frameAnterior) {
 		USUARIO = novo_usuario;
 		FRAME_ANTERIOR = frameAnterior;
 		main(null);
@@ -117,6 +117,12 @@ public class InformeTelefone {
 		// text field telefone
 		textFieldTelefone = ViewUtil.criaTextField(95, 279, 334, 60, null, 26);
 		textFieldTelefone.setToolTipText("Seu número do telefone.");
+		textFieldTelefone.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldTelefone.setFocusable(true);
+			}
+		});
 		frame.getContentPane().add(textFieldTelefone);
 		//
 
@@ -198,13 +204,7 @@ public class InformeTelefone {
 			public void mouseClicked(MouseEvent e) {
 				InformeApelido.FRAME_SEGUINTE = frame;
 				frame.setVisible(false);
-
-				Runnable tarefa = new TarefaAtualizaLabel(FRAME_ANTERIOR.getLblAloha(),
-						FRAME_ANTERIOR.getTextFieldApelido());
-				TarefaAtualizaLabel.roda = true;
-				FRAME_ANTERIOR.setThread(new Thread(tarefa, "Thread atualizador de label"));
-				FRAME_ANTERIOR.getThread().start();
-				FRAME_ANTERIOR.getFrame().setVisible(true);
+				FRAME_ANTERIOR.setVisible(true);
 			}
 		});
 		//

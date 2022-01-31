@@ -112,6 +112,12 @@ public class InformeEmail {
 		// text field email
 		textFieldEmail = ViewUtil.criaTextField(20, 273, 400, 69, null, 25);
 		textFieldEmail.setToolTipText("Seu e-mail");
+		textFieldEmail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textFieldEmail.setFocusable(true);
+			}
+		});
 		frame.getContentPane().add(textFieldEmail);
 		//
 

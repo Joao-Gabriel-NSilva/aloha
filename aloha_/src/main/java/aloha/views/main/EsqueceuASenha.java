@@ -112,6 +112,12 @@ public class EsqueceuASenha {
 		textField.setFont(new Font("Arial Narrow", Font.PLAIN, 25));
 		textField.setBounds(39, 262, 381, 70);
 		textField.setBorder(new TextBubbleBorder(Color.BLACK, 1, 20, 0));
+		textField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				textField.setFocusable(true);
+			}
+		});
 		frame.getContentPane().add(textField);
 		//
 
