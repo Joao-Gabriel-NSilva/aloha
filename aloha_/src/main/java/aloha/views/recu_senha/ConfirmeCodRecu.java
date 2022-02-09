@@ -1,4 +1,4 @@
-package aloha.views.main;
+package aloha.views.recu_senha;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -22,6 +22,7 @@ import aloha.util.Icones;
 import aloha.util.TarefaEnviaEmail;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
+import aloha.views.main.ViewLogin;
 
 public class ConfirmeCodRecu {
 

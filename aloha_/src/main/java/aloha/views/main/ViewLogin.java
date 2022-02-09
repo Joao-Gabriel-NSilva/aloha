@@ -23,6 +23,7 @@ import aloha.DAO.UsuarioDAO;
 import aloha.modelo.Usuario;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
+import aloha.views.recu_senha.EsqueceuASenha;
 import aloha.util.Icones;
 
 public class ViewLogin {

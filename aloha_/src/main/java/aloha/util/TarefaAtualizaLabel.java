@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 
 import aloha.modelo.Usuario;
 import aloha.views.cadastro.CrieASenha;
-import aloha.views.main.RedefinirSenha;
+import aloha.views.recu_senha.RedefinirSenha;
 
 public class TarefaAtualizaLabel implements Runnable {
 	

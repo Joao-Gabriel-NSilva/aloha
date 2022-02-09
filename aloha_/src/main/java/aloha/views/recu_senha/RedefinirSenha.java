@@ -1,4 +1,4 @@
-package aloha.views.main;
+package aloha.views.recu_senha;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -21,6 +21,7 @@ import aloha.util.TarefaAtualizaLabel;
 import aloha.util.TextBubbleBorder;
 import aloha.util.ViewUtil;
 import aloha.views.cadastro.CrieASenha;
+import aloha.views.main.ViewLogin;
 
 public class RedefinirSenha {
 
